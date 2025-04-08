@@ -1,4 +1,5 @@
-## Creación de proyecto:
+## Apuntes Godot
+
 Para proyectos 2D, la opción Mobile es suficiente. Para gráficos más avanzados, usar Forward+. Esta opción puede cambiarse en cualquier momento.
 
 Para cambiar la escena principal (que se renderiza al ejecutar el juego): Project Settings > Application > 
@@ -14,3 +15,7 @@ Para centra el editor en un nodo, pulsar sobre el nodo, colocar el ratón dentro
 
 En el Inspector, se pueden marcar las propiedades como favoritas haciendo click derecho, y aparecerán al principio del Inspector. Esto también puede hacerse con 
 los archivos del FileSystem.
+
+Para cambiar el formato del nombre de los archivos (PascalCase, snake_case,...), Project Settings (activar opciones avanzadas) > Editor > Naming > Scene Name 
+
+Al arrastrar un nodo desde el árbol de nodos y soltarlo mantiendo pulsado control, se crea una referencia a ese nodo.
