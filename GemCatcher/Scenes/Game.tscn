@@ -14,7 +14,7 @@ centered = false
 offset = Vector2(-2797.51, -429.378)
 
 [node name="Paddle" parent="." instance=ExtResource("2_gl6un")]
-position = Vector2(584, 532)
+position = Vector2(438, 540)
 
 [node name="Gem" parent="." instance=ExtResource("3_j5yw3")]
 position = Vector2(446, 170)

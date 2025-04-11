@@ -26,3 +26,9 @@ Es una buena práctica crear las escenas del juego con el botón de crear en vez
 Se utiliza para detectar colisiones en 2 dimensiones. Debe tener como hijo un CollisionShape2D. Posteriormente hay que seleccionar la propiedad shape de este último nodo.
 
 En el menú superior, en la opción Debug, se puede activar la opción Visible Collision Shapes para ver los collision shapes durante el desarrollo y la ejecución del juego.
+
+set_process(false) detiene la ejecución de la función _process() cada frame.
+
+Al llamar a queue_free() en una escena, esta y todos sus hijos son eliminados. En realidad queue_free() pone a las escenas en una cola para ser eliminadas, lo que no tiene que producirse inmediatamente. Por eso es buena práctica detener la ejecución de la función _process() primero para evitar efectos inesperados.
+
+Con get_viewport() se puede comprobar cuando un nodo alcanza el limite de la pantalla.
