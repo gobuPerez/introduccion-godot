@@ -32,3 +32,40 @@ set_process(false) detiene la ejecución de la función _process() cada frame.
 Al llamar a queue_free() en una escena, esta y todos sus hijos son eliminados. En realidad queue_free() pone a las escenas en una cola para ser eliminadas, lo que no tiene que producirse inmediatamente. Por eso es buena práctica detener la ejecución de la función _process() primero para evitar efectos inesperados.
 
 Con get_viewport() se puede comprobar cuando un nodo alcanza el limite de la pantalla.
+
+# Controles
+
+Project > Project Settings > Input Map > Add new action > Escribir nombre de la nueva accion (ej: jump, move_right, etc.) y añadir.
+
+Para lanzar la acción creada, hay que especificar que control la activa. Por ejemplo, si se pulsa la tecla A, entonces move_left.
+
+Activando la opción Show Built-in Actions, se muestran todas las acciones preestablecidas.
+
+Una de las formas de manejar la entrada, es haciendo uso del singleton Input. Ej: Input.is_action_pressed("accion"). 
+
+Input.get_axis("accion") también es útil para manejar la entrada de acciones opuestas, como moverse a derecha o izquierda.
+
+clampf(value,min,max) devuelve el valor de value siempre entre min y max. Esto puede ser útil para que el jugador no salga de los limites de la pantalla.  
+
+Timer es el nodo que se usa para realizar cuentas regresivas. Cuando llega a cero, emite la señal timeout(). Entre otros métodos útiles, destaca stop(). 
+
+Para instanciar una escena mediante codigo, lo primero es indicarle a godot la ruta a esa escena. Esto se consigue arrastrando la escena al código mientras se mantiene pulsado control.
+
+Con preload(), la carga se realiza en tiempo de compilación. Aumenta el tamaño del programa pero es más rápido.
+
+Con load(), se realiza en tiempo de ejecución.
+
+### Ejemplo de instaciación de una escena
+```
+const GEM = preload("res://Scenes/Gem.tscn")
+
+func spawn_gem() -> void:
+	var new_gem = GEM.instantiate()
+	new_gem.position = Vector2(100, -50)
+	add_child(new_gem)
+```
+
+get_children() permite recorrer todos los hijos de un nodo
+
+### Ajustes de importaciones
+Al seleccionar un asset, en Import (junto a Scene) se pueden configurar los parámetros de importación. También pueden establecerse estos parámetros de forma global en Project > Project Settings > Import Defaults > Importer (seleccionar tipo de archivo).
