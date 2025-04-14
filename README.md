@@ -69,3 +69,12 @@ get_children() permite recorrer todos los hijos de un nodo
 
 ### Ajustes de importaciones
 Al seleccionar un asset, en Import (junto a Scene) se pueden configurar los parámetros de importación. También pueden establecerse estos parámetros de forma global en Project > Project Settings > Import Defaults > Importer (seleccionar tipo de archivo).
+
+Para poner música de fondo, se puede utilizar el nodo AudioStreamPlayer. Aparte de los métodos play() y stop(), una propiedad útil es stream, que permite seleccionar el sonido que se reproduce.
+
+Para hacer que el sonido se produzca en una posición concreta se puede usar AudioStreamPlayer2D.
+
+str() convierte una variable a tipo String.
+
+
+
