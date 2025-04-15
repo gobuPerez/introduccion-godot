@@ -16,7 +16,7 @@ Para centra el editor en un nodo, pulsar sobre el nodo, colocar el ratón dentro
 En el Inspector, se pueden marcar las propiedades como favoritas haciendo click derecho, y aparecerán al principio del Inspector. Esto también puede hacerse con 
 los archivos del FileSystem.
 
-Para cambiar el formato del nombre de los archivos (PascalCase, snake_case,...), Project Settings (activar opciones avanzadas) > Editor > Naming > Scene Name 
+Para cambiar el formato del nombre de los archivos (PascalCase, snake_case,...), Project Settings (activar opciones avanzadas) > Editor > Naming
 
 Al arrastrar un nodo desde el árbol de nodos y soltarlo mantiendo pulsado control, se crea una referencia a ese nodo.
 
@@ -33,7 +33,7 @@ Al llamar a queue_free() en una escena, esta y todos sus hijos son eliminados. E
 
 Con get_viewport_rect() se puede comprobar cuando un nodo alcanza el limite de la pantalla. En los juegos en los que la dimensión de la pantalla puede cambiar, es interesante crear una variable estática para almacenar este valor, y conectar una señal (get_viewport.size_changed) para actualizar la variable estática cada vez que la pantalla cambie de tamaño. Así no hay que llamar a get_viewport_rect() continuamente.
 
-# Controles
+### Controles
 
 Project > Project Settings > Input Map > Add new action > Escribir nombre de la nueva accion (ej: jump, move_right, etc.) y añadir.
 
@@ -92,7 +92,14 @@ Después de seleccionar una de las dos opciones anteriores, se establece aspect 
 ### Pasos al iniciar un nuevo proyecto
 1. Importar los assets.
 2. Establecer las dimensiones de la pantalla.
-3. Establecer el aspect ratio. Por ejemplo, Canvas Items and Keep Aspect.
+3. Establecer el aspect ratio. Por ejemplo, Canvas Items y Keep Aspect.
 
+### Nodos para físicas
+1. StaticBody2D: para objetos estáticos o que se mueven mediante script. Útil para suelos y muros.
+2. CharacterBody2D: pensado para personajes que se mueven mediante script.
+3. AnimatableBody2D: para objetos que se mueven solo mediante script o animación. Útil para plataformas que se mueven y puertas.
+4. RigidBody2D: para objetos a los que se le aplican físicas simuladas. Útil para objetos que sufren la gravedad y pueden ser golpeados por otros objetos.
 
+De estos nodos se modifica la velocidad o la fuerza que se le aplica, pero en ningún caso la posición. El motor de físicas es el encargado de calcularla.
 
+Aunque el Area2D y el CharacterBody2D son parecidos y ambos tienen collisionShape2D, en el primero se utiliza para detectar colisiones con otros CollisionShape2D mientras que en el segundo para interactuar con esos CollisionShape2D.
