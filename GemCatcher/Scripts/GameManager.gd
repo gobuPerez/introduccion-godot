@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name GameManager
+
 const EXPLODE = preload("res://assets/explode.wav")
 const GEM = preload("res://Scenes/Gem.tscn")
 const MARGIN:float = 70.0
@@ -10,14 +12,23 @@ var _score:int = 0
 @onready var score_sound: AudioStreamPlayer2D = $ScoreSound
 @onready var sound: AudioStreamPlayer = $Sound
 @onready var score_label: Label = $ScoreLabel
+static var vp:Rect2
 
 func _ready() -> void:
+	update_vp()
+	get_viewport().size_changed.connect(update_vp) # si se modifica las dimensiones de pantalla, se lanza esta señal
 	spawn_gem() # se instancia una gema nada mas arrancar el juego, sin tener que esperar los dos segundos del timer
 
+func update_vp() -> void:
+	vp = get_viewport_rect()
+
+static func get_vp() -> Rect2:
+	return vp;
+	
 func spawn_gem() -> void:
 	var random_position:float = randf_range(
-		get_viewport_rect().position.x + MARGIN, 
-		get_viewport_rect().end.x - MARGIN
+		vp.position.x + MARGIN, 
+		vp.end.x - MARGIN
 	)
 	var new_gem:Gem = GEM.instantiate()
 	new_gem.position = Vector2(random_position, -50)

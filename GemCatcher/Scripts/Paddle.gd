@@ -14,4 +14,4 @@ func _process(delta: float) -> void:
 	# movement va a ser -1 o 1
 	var movement:float = Input.get_axis("move_left", "move_right")
 	position.x += SPEED * delta * movement
-	position.x = clampf(position.x, get_viewport_rect().position.x, get_viewport_rect().end.x) # Replace with function body.
+	position.x = clampf(position.x, GameManager.get_vp().position.x, GameManager.get_vp().end.x) # Replace with function body.

@@ -31,7 +31,7 @@ set_process(false) detiene la ejecución de la función _process() cada frame.
 
 Al llamar a queue_free() en una escena, esta y todos sus hijos son eliminados. En realidad queue_free() pone a las escenas en una cola para ser eliminadas, lo que no tiene que producirse inmediatamente. Por eso es buena práctica detener la ejecución de la función _process() primero para evitar efectos inesperados.
 
-Con get_viewport() se puede comprobar cuando un nodo alcanza el limite de la pantalla.
+Con get_viewport_rect() se puede comprobar cuando un nodo alcanza el limite de la pantalla. En los juegos en los que la dimensión de la pantalla puede cambiar, es interesante crear una variable estática para almacenar este valor, y conectar una señal (get_viewport.size_changed) para actualizar la variable estática cada vez que la pantalla cambie de tamaño. Así no hay que llamar a get_viewport_rect() continuamente.
 
 # Controles
 
@@ -75,6 +75,24 @@ Para poner música de fondo, se puede utilizar el nodo AudioStreamPlayer. Aparte
 Para hacer que el sonido se produzca en una posición concreta se puede usar AudioStreamPlayer2D.
 
 str() convierte una variable a tipo String.
+
+### Ciclo de vida de un nodo
+1. _init: se definen variables y métodos.
+2. _enter_tree: la instancia sea añade al árbol de escenas
+3. _ready: la instancia y sus hijos se añaden al árbol. Esta función se ejecuta primero en los hijos y luego en los padres.
+4. _exit_tree: la instancia se prepara para ser eliminada del árbol de escenas.
+
+### Aspect Ratios
+Project Settings > General > Display > Window > Stretch
+
+Mode: las opciones canvas_items y viewport son prácticamente iguales, pero canvas_items no se recomienda para pixel art.
+
+Después de seleccionar una de las dos opciones anteriores, se establece aspect en keep. De esta manera se asegura que se mantenga la relación de aspecto.
+
+### Pasos al iniciar un nuevo proyecto
+1. Importar los assets.
+2. Establecer las dimensiones de la pantalla.
+3. Establecer el aspect ratio. Por ejemplo, Canvas Items and Keep Aspect.
 
 
 

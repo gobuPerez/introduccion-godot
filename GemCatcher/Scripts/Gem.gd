@@ -14,7 +14,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position.y += (SPEED * delta)
 	
-	if position.y > get_viewport_rect().end.y: # si la posicion esta por debajo del limite inferior de la pantalla
+	if position.y > GameManager.get_vp().end.y: # si la posicion esta por debajo del limite inferior de la pantalla
 		# print("La gema alcanza el limite inferior de la pantalla.")
 		gem_off_screen.emit()
 		die()
