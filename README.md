@@ -95,10 +95,10 @@ Después de seleccionar una de las dos opciones anteriores, se establece aspect 
 3. Establecer el aspect ratio. Por ejemplo, Canvas Items y Keep Aspect.
 
 ### Nodos para físicas
-1. StaticBody2D: para objetos estáticos o que se mueven mediante script. Útil para suelos y muros.
-2. CharacterBody2D: pensado para personajes que se mueven mediante script.
-3. AnimatableBody2D: para objetos que se mueven solo mediante script o animación. Útil para plataformas que se mueven y puertas.
-4. RigidBody2D: para objetos a los que se le aplican físicas simuladas. Útil para objetos que sufren la gravedad y pueden ser golpeados por otros objetos.
+1. StaticBody2D: para objetos que no pueden ser movidos por fuerzas externas. Con son móvidos por script, no afectan a otros objetos. Útil para suelos y muros.
+2. CharacterBody2D: pensado para personajes que se mueven mediante script. No son afectados por las físicas pero afectan a las físicas de otros objetos.
+3. AnimatableBody2D: para objetos que se mueven solo mediante script o animación. Cuando se mueven mediante script, afectan a las físicas de otros objetos. Útil para plataformas que se mueven y puertas.
+4. RigidBody2D: para objetos a los que se les aplican físicas. Útil para objetos que sufren la gravedad y pueden ser golpeados por otros objetos.
 
 De estos nodos se modifica la velocidad o la fuerza que se le aplica, pero en ningún caso la posición. El motor de físicas es el encargado de calcularla.
 
@@ -106,6 +106,17 @@ Aunque el Area2D y el CharacterBody2D son parecidos y ambos tienen collisionShap
 
 Cuando se quieren animar varios sprites, puede usarse AnimatedSprite2D en lugar de Sprite2D. Pulsar sobre Animation > Sprite Frame > empty > New Sprite Frame. Se abre un nuevo menú donde cargar la hoja de sprites. Buscar la opción: Add frames from sprite sheet. Una vez cargados, aparecerá una nueva ventana para recortarlos. 
 
-Los Sprites Frames quedan guardados en la escena, pero se pueden guardar de forma independiente con la opción Save. De esta manera pueden ser reutilizados por escenas distintas. Si se quiere modificar un Sprite Frame compartido por varios escenas sin que afecte al resto, se puede usar la opcion Make Unique.
+Los Sprites Frames quedan guardados en la escena, pero se pueden guardar de forma independiente con la opción Save. De esta manera pueden ser reutilizados por escenas distintas. Si se quiere modificar un Sprite Frame compartido por varios escenas sin que afecte al resto, se puede usar la opcion Make Unique (esto hace que el sprite frame se guarde en la escena).
+
+Esta forma de guardar los recursos dentro de una escena o de forma separada aparece continuamente a la hora de trabajar con godot.
 
 Cuando una escena con físicas necesita ser escalada, es preferible escalar los sprites (AnimatedSprite2D o Sprite2D) que la escena completa, ya que se pueden producir errores con el motor de físicas (aunque no debería).
+
+Al trabajar con nodos de físicas, usar _physics_process(delta) en lugar de _process(delta). Esto permite al motor de físicas realizar todos los cálculos correctamente.
+
+Para acceder a una variable de la configuración del proyecto, seguir estos pasos:
+1. Buscar la variable en Project Settings. Por ejemplo, gravity.
+2. Hacer click derecho sobre el nombre de la variable y copiar la ruta: Copy Property Path.
+3. Dentro del script, usar la función ProjectSettings.get(ruta). Ej: var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
+
+## move_and_slide() multiplica por delta internamente!!
