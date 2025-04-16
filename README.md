@@ -103,3 +103,9 @@ Después de seleccionar una de las dos opciones anteriores, se establece aspect 
 De estos nodos se modifica la velocidad o la fuerza que se le aplica, pero en ningún caso la posición. El motor de físicas es el encargado de calcularla.
 
 Aunque el Area2D y el CharacterBody2D son parecidos y ambos tienen collisionShape2D, en el primero se utiliza para detectar colisiones con otros CollisionShape2D mientras que en el segundo para interactuar con esos CollisionShape2D.
+
+Cuando se quieren animar varios sprites, puede usarse AnimatedSprite2D en lugar de Sprite2D. Pulsar sobre Animation > Sprite Frame > empty > New Sprite Frame. Se abre un nuevo menú donde cargar la hoja de sprites. Buscar la opción: Add frames from sprite sheet. Una vez cargados, aparecerá una nueva ventana para recortarlos. 
+
+Los Sprites Frames quedan guardados en la escena, pero se pueden guardar de forma independiente con la opción Save. De esta manera pueden ser reutilizados por escenas distintas. Si se quiere modificar un Sprite Frame compartido por varios escenas sin que afecte al resto, se puede usar la opcion Make Unique.
+
+Cuando una escena con físicas necesita ser escalada, es preferible escalar los sprites (AnimatedSprite2D o Sprite2D) que la escena completa, ya que se pueden producir errores con el motor de físicas (aunque no debería).
