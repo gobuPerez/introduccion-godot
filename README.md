@@ -27,7 +27,7 @@ Se utiliza para detectar colisiones en 2 dimensiones. Debe tener como hijo un Co
 
 En el menú superior, en la opción Debug, se puede activar la opción Visible Collision Shapes para ver los collision shapes durante el desarrollo y la ejecución del juego.
 
-set_process(false) detiene la ejecución de la función _process() cada frame.
+set_process(false) detiene la ejecución de la función _process() cada frame. Tambión puede detenerse la ejecución de la función _physics_process() con set_physics_process(false)
 
 Al llamar a queue_free() en una escena, esta y todos sus hijos son eliminados. En realidad queue_free() pone a las escenas en una cola para ser eliminadas, lo que no tiene que producirse inmediatamente. Por eso es buena práctica detener la ejecución de la función _process() primero para evitar efectos inesperados.
 
@@ -95,7 +95,7 @@ Después de seleccionar una de las dos opciones anteriores, se establece aspect 
 3. Establecer el aspect ratio. Por ejemplo, Canvas Items y Keep Aspect.
 
 ### Nodos para físicas
-1. StaticBody2D: para objetos que no pueden ser movidos por fuerzas externas. Con son móvidos por script, no afectan a otros objetos. Útil para suelos y muros.
+1. StaticBody2D: para objetos que no pueden ser movidos por fuerzas externas. Cuando son móvidos por script, no afectan a otros objetos. Útil para suelos y muros.
 2. CharacterBody2D: pensado para personajes que se mueven mediante script. No son afectados por las físicas pero afectan a las físicas de otros objetos.
 3. AnimatableBody2D: para objetos que se mueven solo mediante script o animación. Cuando se mueven mediante script, afectan a las físicas de otros objetos. Útil para plataformas que se mueven y puertas.
 4. RigidBody2D: para objetos a los que se les aplican físicas. Útil para objetos que sufren la gravedad y pueden ser golpeados por otros objetos.
@@ -120,3 +120,16 @@ Para acceder a una variable de la configuración del proyecto, seguir estos paso
 3. Dentro del script, usar la función ProjectSettings.get(ruta). Ej: var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
 
 ## move_and_slide() multiplica por delta internamente!!
+
+### AnimationPlayer
+Mientras que el AnimatedSprite2D permite crear una animación formada por varios sprites, el AnimationPlayer permite animar otras propiedades como la rotación, la posición, la escala, etc.
+
+Al añadir el nodo AnimationPlayer, se abre un nuevo menú llamado Animation. Para crear una nueva animación, pulsar sobre Animation > New. Siempre que esté el menú Animation abierto, en el inspector van a aparecer las propiedades que se pueden animar con una llave al lado. Las propiedades se pueden añadir a la animación pulsando sobre la llave o dentro del menú Animation pulsando sobre Add track.
+
+Para iniciar la animación desde un script, animation_player.play("nombre_animacion")
+
+El nodo VisibleOnScreenNotifier2D permite saber si un nodo está dentro de la pantalla o no. Sin embargo, tiene ciertos problemas cuando el juego está minimizado o está detrás de otras ventanas en algunos sistemas operativos, por lo que realmente es mejor usar otras técnicas para saber cuando un objeto ha salido de la pantalla.
+
+Para agrupar múltiples nodos y manipularlos a todos como un conjunto, se puede usar el nodo Node con el conjunto de nodos como sus hijos.
+
+Para marcar posiciones en el juego, se puede usar el nodo Marker2D.
