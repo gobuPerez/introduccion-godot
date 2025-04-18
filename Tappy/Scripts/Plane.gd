@@ -1,8 +1,12 @@
 extends CharacterBody2D
 
+class_name PlanePlayer # Plane es una palabra reservada de gdscript
+
 const JUMP_POWER:float = -350.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+signal on_plane_died
 
 var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
 
@@ -27,3 +31,4 @@ func fly(delta:float) -> void:
 func die() -> void:
 	animated_sprite_2d.stop()
 	set_physics_process(false)
+	on_plane_died.emit()

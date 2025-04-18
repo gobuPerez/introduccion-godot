@@ -17,3 +17,7 @@ func _process(delta: float) -> void:
 func die() -> void:
 	set_process(false)
 	queue_free()
+
+func _on_pipe_body_entered(body: Node2D) -> void:
+	if body is PlanePlayer:
+		body.die()

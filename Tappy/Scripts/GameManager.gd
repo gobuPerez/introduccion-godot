@@ -14,7 +14,7 @@ func _ready() -> void:
 	spawn_pipes()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 static func get_vp() -> Rect2:
@@ -29,7 +29,8 @@ func spawn_pipes() -> void:
 	new_pipes.position.y = randf_range(upper_marker.position.y, lower_marker.position.y)
 	pipes_holder.add_child(new_pipes)
 	
-
 func _on_spawn_timer_timeout() -> void:
 	spawn_pipes()
-	
+
+func _on_plane_died() -> void:
+	get_tree().paused = true

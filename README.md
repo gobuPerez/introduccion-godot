@@ -47,7 +47,7 @@ Input.get_axis("accion") también es útil para manejar la entrada de acciones o
 
 clampf(value,min,max) devuelve el valor de value siempre entre min y max. Esto puede ser útil para que el jugador no salga de los limites de la pantalla.  
 
-Timer es el nodo que se usa para realizar cuentas regresivas. Cuando llega a cero, emite la señal timeout(). Entre otros métodos útiles, destaca stop(). 
+Timer es el nodo que se usa para realizar cuentas regresivas. Cuando llega a cero, emite la señal timeout(). Entre otros métodos útiles, destaca stop().
 
 Para instanciar una escena mediante codigo, lo primero es indicarle a godot la ruta a esa escena. Esto se consigue arrastrando la escena al código mientras se mantiene pulsado control.
 
@@ -106,7 +106,7 @@ Aunque el Area2D y el CharacterBody2D son parecidos y ambos tienen collisionShap
 
 Cuando se quieren animar varios sprites, puede usarse AnimatedSprite2D en lugar de Sprite2D. Pulsar sobre Animation > Sprite Frame > empty > New Sprite Frame. Se abre un nuevo menú donde cargar la hoja de sprites. Buscar la opción: Add frames from sprite sheet. Una vez cargados, aparecerá una nueva ventana para recortarlos. 
 
-Los Sprites Frames quedan guardados en la escena, pero se pueden guardar de forma independiente con la opción Save. De esta manera pueden ser reutilizados por escenas distintas. Si se quiere modificar un Sprite Frame compartido por varios escenas sin que afecte al resto, se puede usar la opcion Make Unique (esto hace que el sprite frame se guarde en la escena).
+Los Sprites Frames quedan guardados en la escena, pero se pueden guardar de forma independiente con la opción Save as. De esta manera pueden ser reutilizados por escenas distintas. Si se quiere modificar un Sprite Frame compartido por varios escenas sin que afecte al resto, se puede usar la opcion Make Unique (esto hace que el sprite frame se guarde en la escena).
 
 Esta forma de guardar los recursos dentro de una escena o de forma separada aparece continuamente a la hora de trabajar con godot.
 
@@ -133,3 +133,27 @@ El nodo VisibleOnScreenNotifier2D permite saber si un nodo está dentro de la pa
 Para agrupar múltiples nodos y manipularlos a todos como un conjunto, se puede usar el nodo Node con el conjunto de nodos como sus hijos.
 
 Para marcar posiciones en el juego, se puede usar el nodo Marker2D.
+
+Los nodos para físicas, como el CharacterBody2D, no son buenos para detectar con qué objeto ha impactado el nodo.
+
+### Pausar una escena
+Para pausar todas las físicas, animaciones, etc de una escena, puede usarse get_tree().paused = true
+
+### Interfaz de usuario
+En cuanto a la interfaz de usuario, hay dos tipos de nodos:
+1. Presenting nodes: muestran algo por pantalla.
+2. Containers: controlan la diposición de sus hijos en pantalla. Es mejor usar estos nodos que posicionar los elementos en pantalla de forma manual.
+
+Para añadir imágenes a la interfaz, se usa TextureRect.
+Para añadir texto, se usa el nodo Label. Para cambiar su aspecto, crear un nuevo Label Settings. Esto permite cargar fuentes personalizadas, por ejemplo.
+Para añadir márgenes, MarginContainer. Todos los nodos a los que se les quiera aplicar margen deberán ser hijos de este nodo. Ahora todos los nodos deberán posicionarse individualmente usando la barra de herramientas de la barra superior. Para establecer los márgenes, dentro del inspector, Control > Theme Overrides > Constants
+
+Las animaciones pueden usarse también en los nodos de control. Para que un nodo parpadee, por ejemplo, se anima la propiedad CanvasItem > Visibility > Modulate.
+
+Para detectar una entrada puntual se puede usar la función _input(event:InputEvent). En los casos de entradas puntuales es recomendable no usar _process(). 
+
+_input() y unhandled_input() se diferencian en que las entradas manejadas por la interfaz son marcadas como manejadas y nunca llegan a la función unhandled_input().
+
+### Cambios de escena
+1. Precargar escena arrastrándola al código manteniendo pulsado Control.
+2. Usar get_tree().change_scene_to_packed(escena_precargada)
