@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciot5g27dxati"]
+
+[ext_resource type="LabelSettings" uid="uid://du6vpwyffk2g0" path="res://Resources/title_font_32.tres" id="1_71wt1"]
+[ext_resource type="Script" uid="uid://bdaeay13rh6ia" path="res://Scripts/GameUi.gd" id="1_xkiwj"]
+[ext_resource type="LabelSettings" uid="uid://bg7dxs2114kd6" path="res://Resources/title_font_72.tres" id="2_xkiwj"]
+
+[node name="Control" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xkiwj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "0"
+label_settings = ExtResource("1_71wt1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "GAME OVER"
+label_settings = ExtResource("2_xkiwj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PRESIONA ESPACIO"
+label_settings = ExtResource("1_71wt1")

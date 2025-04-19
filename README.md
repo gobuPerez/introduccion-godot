@@ -138,6 +138,7 @@ Los nodos para físicas, como el CharacterBody2D, no son buenos para detectar co
 
 ### Pausar una escena
 Para pausar todas las físicas, animaciones, etc de una escena, puede usarse get_tree().paused = true
+Cuando se pausa una escena, se pausan todos sus hijos. Para evitar que se pausen, se pueden seleccionar y modificar en el inspector: Node > Process > Mode > Always.
 
 ### Interfaz de usuario
 En cuanto a la interfaz de usuario, hay dos tipos de nodos:
@@ -146,9 +147,13 @@ En cuanto a la interfaz de usuario, hay dos tipos de nodos:
 
 Para añadir imágenes a la interfaz, se usa TextureRect.
 Para añadir texto, se usa el nodo Label. Para cambiar su aspecto, crear un nuevo Label Settings. Esto permite cargar fuentes personalizadas, por ejemplo.
-Para añadir márgenes, MarginContainer. Todos los nodos a los que se les quiera aplicar margen deberán ser hijos de este nodo. Ahora todos los nodos deberán posicionarse individualmente usando la barra de herramientas de la barra superior. Para establecer los márgenes, dentro del inspector, Control > Theme Overrides > Constants
+Para añadir márgenes, MarginContainer (recordar ajustar su tamaño a toda la pantalla). Todos los nodos a los que se les quiera aplicar margen deberán ser hijos de este nodo. Ahora todos los nodos deberán posicionarse individualmente usando la barra de herramientas de la barra superior. Para establecer los márgenes, dentro del inspector, Control > Theme Overrides > Constants
 
 Las animaciones pueden usarse también en los nodos de control. Para que un nodo parpadee, por ejemplo, se anima la propiedad CanvasItem > Visibility > Modulate.
+
+Para dibujar elementos en una pantalla de juego, hay que añadir el nodo CanvasLayer, los elementos de la interfaz tienen que añadirse como hijos de este. En una misma pantalla, pueden añadirse múltiples CanvasLayer.
+
+El CanvasLayer se muestra por delante del resto de los elementos del juego, independientemente del orden en el árbol. Este orden puede cambiarse en el inspector: CanvasLayer > Layer > Layer. Se muestra primero la capa que tiene este valor más alto.
 
 Para detectar una entrada puntual se puede usar la función _input(event:InputEvent). En los casos de entradas puntuales es recomendable no usar _process(). 
 
@@ -157,3 +162,6 @@ _input() y unhandled_input() se diferencian en que las entradas manejadas por la
 ### Cambios de escena
 1. Precargar escena arrastrándola al código manteniendo pulsado Control.
 2. Usar get_tree().change_scene_to_packed(escena_precargada)
+
+### Problema de dependencias circulares
+Failed to instantiate scene state of "", node count is 0. Esto error aparece cuando la escena A precarga en su script a la escena B, y la escena B precarga en su script a la escena A. Esto se soluciona usando load() en lugar de preload() en una de las escenas.
