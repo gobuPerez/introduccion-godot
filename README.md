@@ -155,6 +155,10 @@ Para dibujar elementos en una pantalla de juego, hay que añadir el nodo CanvasL
 
 El CanvasLayer se muestra por delante del resto de los elementos del juego, independientemente del orden en el árbol. Este orden puede cambiarse en el inspector: CanvasLayer > Layer > Layer. Se muestra primero la capa que tiene este valor más alto.
 
+De CanvasLayer son útiles las funciones show() y hide() para mostrar y ocultar etiquetas, por ejemplo. Se puede conseguir el mismo efecto usando la propiedad visible. Ej: label.visible = true
+
+Para ocultar un nodo o escena por defecto, puede pulsarse sobre el icono del ojo en el árbol de escenas.
+
 Para detectar una entrada puntual se puede usar la función _input(event:InputEvent). En los casos de entradas puntuales es recomendable no usar _process(). 
 
 _input() y unhandled_input() se diferencian en que las entradas manejadas por la interfaz son marcadas como manejadas y nunca llegan a la función unhandled_input().
@@ -165,3 +169,14 @@ _input() y unhandled_input() se diferencian en que las entradas manejadas por la
 
 ### Problema de dependencias circulares
 Failed to instantiate scene state of "", node count is 0. Esto error aparece cuando la escena A precarga en su script a la escena B, y la escena B precarga en su script a la escena A. Esto se soluciona usando load() en lugar de preload() en una de las escenas.
+
+### Signal Hub
+Para manejar las múltiples señales que se emiten durante el juego, se puede usar un signal hub. Para ello:
+1. Crear una carpeta llamada Globals en la raíz del proyecto.
+2. Dentro de esa carpeta crear un script llamado SignalHub, seleccionando Template: Empty
+3. Project Settings > Globals > Autoload. Cargar el script, darle un nombre y añadir. A partir de este momento, podremos usar el script anterior en otros scripts para emitir señales. El orden en el que son creados los autoloads es el mismo en el que aparecerán en el árbol de nodos cuando empiece el juego. Puede modificarse usando las flechas que aparecen a la derecha.
+4. Conectar la señal en la función _enter_tree() en lugar de _ready(). La primera se ejecuta antes que la segunda. De esta forma nos aseguramos que cuando se envíe una señal, ya esté conectada previamente.
+
+Al usar un GameManager para precargar las escenas del juego, no se va a producir el error de las dependencias cruzadas, ya que todas las escenas se precargaran una sola vez al comienzo del juego.
+
+Al igual que es posible conectar una señal a una función, es posible desconectarla.

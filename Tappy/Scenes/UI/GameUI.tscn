@@ -24,16 +24,17 @@ grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Score" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "0"
+text = "0000"
 label_settings = ExtResource("1_71wt1")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer"]
+[node name="GameOver" type="Label" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 text = "GAME OVER"
@@ -41,8 +42,14 @@ label_settings = ExtResource("2_xkiwj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="MarginContainer"]
+[node name="PressSpace" type="Label" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 text = "PRESIONA ESPACIO"
 label_settings = ExtResource("1_71wt1")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
