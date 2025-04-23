@@ -180,3 +180,11 @@ Para manejar las múltiples señales que se emiten durante el juego, se puede us
 Al usar un GameManager para precargar las escenas del juego, no se va a producir el error de las dependencias cruzadas, ya que todas las escenas se precargaran una sola vez al comienzo del juego. Además, el GameManager se encargará de los cambios de escena.
 
 Al igual que es posible conectar una señal a una función, es posible desconectarla.
+
+### Persistencia de datos
+En lugar de escribrir los datos en ficheros, es preferible crear recursos personalizados.
+1. Crear una carpeta llamada Classes en la raíz del proyecto. No confundir con la carpeta Resources, que guarda otros elementos del juego.
+2. Click derecho > Create New > Script. Inherits: Resource. Es recomendable indicar en el nombre que se trata de un recurso.Ej: HighScoreResource
+3. Dar un nombre al script con class_name. Esto permite que Godot trate al script como un recurso personalizado.
+4. Los datos de la partida no van a almacenarse en los datos del proyecto, sino en los datos del usuario. Su ubicación va a depender del sistema operativo. 
+5. res:// indica una ruta de proyeto mientras que user:// indica una ruta en el sistema operativo.
