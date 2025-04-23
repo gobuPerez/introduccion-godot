@@ -177,6 +177,6 @@ Para manejar las múltiples señales que se emiten durante el juego, se puede us
 3. Project Settings > Globals > Autoload. Cargar el script, darle un nombre y añadir. A partir de este momento, podremos usar el script anterior en otros scripts para emitir señales. El orden en el que son creados los autoloads es el mismo en el que aparecerán en el árbol de nodos cuando empiece el juego. Puede modificarse usando las flechas que aparecen a la derecha.
 4. Conectar la señal en la función _enter_tree() en lugar de _ready(). La primera se ejecuta antes que la segunda. De esta forma nos aseguramos que cuando se envíe una señal, ya esté conectada previamente.
 
-Al usar un GameManager para precargar las escenas del juego, no se va a producir el error de las dependencias cruzadas, ya que todas las escenas se precargaran una sola vez al comienzo del juego.
+Al usar un GameManager para precargar las escenas del juego, no se va a producir el error de las dependencias cruzadas, ya que todas las escenas se precargaran una sola vez al comienzo del juego. Además, el GameManager se encargará de los cambios de escena.
 
 Al igual que es posible conectar una señal a una función, es posible desconectarla.

@@ -96,7 +96,7 @@ size_flags_vertical = 8
 text = "Récord"
 label_settings = ExtResource("3_qyh0x")
 
-[node name="Label3" type="Label" parent="MarginContainer"]
+[node name="HighScoreLabel" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
