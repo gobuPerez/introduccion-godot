@@ -1,10 +1,18 @@
 extends Node
 
 # ruta donde va a guardarse de forma persistente la puntuacion más alta
-const SCORE_PATH:String = "user://proyecto.tres"
+const SCORE_PATH:String = "user://tappy.tres"
 
 var _high_score:int = 0
 
+var high_score:int:
+	get:
+		return _high_score
+	set (value):
+		if value > _high_score: 
+			_high_score = value
+			save_high_score()
+			
 func _ready() -> void:
 	load_high_score()
 	

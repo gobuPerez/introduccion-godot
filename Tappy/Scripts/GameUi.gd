@@ -12,7 +12,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		GameManager.load_game_scene()
 	elif event.is_action_pressed("jump") and press_space.visible:
 		if (_score > ScoreManager._high_score): 
-			ScoreManager._high_score = _score
+			ScoreManager.high_score = _score
 		GameManager.load_main_scene()
 		
 func _enter_tree() -> void:

@@ -2,7 +2,7 @@
 
 Para proyectos 2D, la opción Mobile es suficiente. Para gráficos más avanzados, usar Forward+. Esta opción puede cambiarse en cualquier momento.
 
-Para cambiar la escena principal (que se renderiza al ejecutar el juego): Project Settings > Application > 
+Para cambiar la escena principal (que se renderiza al ejecutar el juego): Project Settings > Application > Run
 
 Para cambiar la velocidad de la rueda del ratón para hacer zoom: Editor Settings > Buscar zoom > Zoom Speed Factor
 
@@ -27,7 +27,7 @@ Se utiliza para detectar colisiones en 2 dimensiones. Debe tener como hijo un Co
 
 En el menú superior, en la opción Debug, se puede activar la opción Visible Collision Shapes para ver los collision shapes durante el desarrollo y la ejecución del juego.
 
-set_process(false) detiene la ejecución de la función _process() cada frame. Tambión puede detenerse la ejecución de la función _physics_process() con set_physics_process(false)
+set_process(false) detiene la ejecución de la función _process() cada frame. También puede detenerse la ejecución de la función _physics_process() con set_physics_process(false)
 
 Al llamar a queue_free() en una escena, esta y todos sus hijos son eliminados. En realidad queue_free() pone a las escenas en una cola para ser eliminadas, lo que no tiene que producirse inmediatamente. Por eso es buena práctica detener la ejecución de la función _process() primero para evitar efectos inesperados.
 
@@ -183,7 +183,7 @@ Al igual que es posible conectar una señal a una función, es posible desconect
 
 ### Persistencia de datos
 En lugar de escribrir los datos en ficheros, es preferible crear recursos personalizados.
-1. Crear una carpeta llamada Classes en la raíz del proyecto. No confundir con la carpeta Resources, que guarda otros elementos del juego.
+1. Crear una carpeta llamada Classes en la raíz del proyecto. No confundir con la carpeta Resources creada anteriormente, que guarda otros elementos del juego.
 2. Click derecho > Create New > Script. Inherits: Resource. Es recomendable indicar en el nombre que se trata de un recurso.Ej: HighScoreResource
 3. Dar un nombre al script con class_name. Esto permite que Godot trate al script como un recurso personalizado.
 4. Los datos de la partida no van a almacenarse en los datos del proyecto, sino en los datos del usuario. Su ubicación va a depender del sistema operativo. 
