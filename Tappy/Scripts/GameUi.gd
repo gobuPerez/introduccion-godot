@@ -1,9 +1,12 @@
 extends Control
 
+const GAME_OVER = preload("res://assets/audio/game_over.wav")
+
 @onready var game_over: Label = $MarginContainer/GameOver
 @onready var press_space: Label = $MarginContainer/PressSpace
 @onready var timer: Timer = $Timer
 @onready var score_label: Label = $MarginContainer/Score
+@onready var sound: AudioStreamPlayer = $Sound
 
 var _score:int = 0
 
@@ -23,6 +26,9 @@ func _ready() -> void:
 	_score = 0
 	
 func on_plane_died() -> void:
+	sound.stop()
+	sound.stream = GAME_OVER
+	sound.play()
 	game_over.show()
 	timer.start()
 
@@ -31,5 +37,6 @@ func _on_timer_timeout() -> void:
 	press_space.show()
 	
 func increase_score() -> void:
+	sound.play()
 	_score += 1
 	score_label.text = "%04d" % _score
