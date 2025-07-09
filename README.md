@@ -188,3 +188,6 @@ En lugar de escribrir los datos en ficheros, es preferible crear recursos person
 3. Dar un nombre al script con class_name. Esto permite que Godot trate al script como un recurso personalizado.
 4. Los datos de la partida no van a almacenarse en los datos del proyecto, sino en los datos del usuario. Su ubicación va a depender del sistema operativo. 
 5. res:// indica una ruta de proyeto mientras que user:// indica una ruta en el sistema operativo.
+
+### Precisión en las colisiones
+Para escenarios donde es importante que se detecte la colisión de la forma más precisa, se puede usar _physics_process() en vez de _process(), ya que el primero se ejecuta en intervalos fijos de tiempo.
