@@ -34,6 +34,10 @@ Buscando "zoom", se puede cambiar la velocidad a la que se hace zoom en la panta
 
 Dentro de Editor > Editor Settings, también esta la pestaña "Shortcuts", donde pueden consultarse y modificarse los atajos de teclado.
 
+Dentro de la ventana 2D, en View > Grid, se puede seleccionar cuándo mostrar el grid. El tamaño del grid se puede cambiar en la ventana 2D, junto a las opciones de "Snap", en los tres puntos: Configure Snap.
+
+Arrastrando las reglas que aparecen dentro de la ventana 2D, las que indican los pixels, se pueden crear ejes para medir de manera más precisa las posiciones.
+
 ### Relación de aspecto y resolución
 
 Para elegir el tamaño del viewport durante el desarrollo: Project > Project Settings > Display > Window > Size
@@ -60,13 +64,21 @@ Utilizando un editor de código se pueden abrir los archivos .tscn (escenas) y v
 
 La escena principal que será renderizada cuando se ejecute el juego se puede seleccionar en Project > Project Settings > Application > Run. También se puede seleccionar haciendo click derecho sobre la escena en el FileSystem > Set as Main Scene
 
-Al ejecutar el juego, dentro de la venta Scene aparecen dos pestañas:
+Al ejecutar el juego, dentro de la ventana Scene aparecen dos pestañas:
 
 - Remote: muestra los nodos que forman parte del juego durante su ejecución. Es decir, lo que se está renderizando.
 
 - Local: vista normal del árbol de nodos.
 
 Dentro de un mismo nivel del árbol de nodos, dos nodos no pueden tener el mismo nombre.
+
+Las propiedades de un nodo se pueden marcar como favoritas haciendo click derecho sobre ellas en el Inspector.
+
+El orden en el que se renderizan en pantalla los nodos depende de la propiedad: Canvas Item > Ordering > Z Index. Si la opción "Z as relative" está activada, el índice Z de un nodo hijo se obtiene sumando su índice al que tiene su padre. En caso de igualdad de índice Z, el orden de renderizado lo determina el orden en el árbol de nodos. Cuanto más abajo en el árbol de nodos, más prioridad para ser renderizado.
+
+Haciendo click derecho sobre un nodo en la ventana "Scene" se puede cambiar el tipo de nodo: Change Type...
+
+La propiedad Canvas Item > Ordering > Y Sort Enable, permite ordenar los nodos según su posición Y. Esto es útil en juegos 2D tipo RPG, en los que un personaje puede rodear objetos. Gracias a esta propiedad se crea un efecto 3D. Es importante saber que esta propiedad no se activa en los nodos que queremos ordenar. Los nodos deben tener el mismo padre y la propidad se activa en el padre. Los nodos hijos deben pertenecer a la misma capa. 
 
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 
