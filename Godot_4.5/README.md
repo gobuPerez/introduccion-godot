@@ -34,6 +34,18 @@ Buscando "zoom", se puede cambiar la velocidad a la que se hace zoom en la panta
 
 Dentro de Editor > Editor Settings, también esta la pestaña "Shortcuts", donde pueden consultarse y modificarse los atajos de teclado.
 
+### Relación de aspecto y resolución
+
+Para elegir el tamaño del viewport durante el desarrollo: Project > Project Settings > Display > Window > Size
+
+Para que el juego pueda adaptarse a distintas pantallas con diferentes tamaños sin perder las proporciones es necesario configurar, Project > Project Settings > Display > Window > Stretch > Mode:
+- canvas_items: para los juegos 2D que no sean pixel art.
+- viewport: para juegos 2D con estilo pixel art.
+
+Configurar Project > Project Settings > Display > Window > Stretch > Aspect en "keep".
+
+Para que los sprites se vean bien en juegos con estilo pixel art cambiar Project > Project Settings > Rendering > Textures > Canvas Textures > Default Texture Filter a "Nearest".
+
 ### Importación de assets
 
 A la hora de importar assets al proyecto, da igual arrastrarlos dentro del FileSystem o añadirlos a la carpeta del proyecto desde el explorador de archivos del sistema operativo.
@@ -48,5 +60,13 @@ Utilizando un editor de código se pueden abrir los archivos .tscn (escenas) y v
 
 La escena principal que será renderizada cuando se ejecute el juego se puede seleccionar en Project > Project Settings > Application > Run. También se puede seleccionar haciendo click derecho sobre la escena en el FileSystem > Set as Main Scene
 
-- Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture".
+Al ejecutar el juego, dentro de la venta Scene aparecen dos pestañas:
+
+- Remote: muestra los nodos que forman parte del juego durante su ejecución. Es decir, lo que se está renderizando.
+
+- Local: vista normal del árbol de nodos.
+
+Dentro de un mismo nivel del árbol de nodos, dos nodos no pueden tener el mismo nombre.
+
+- Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 
