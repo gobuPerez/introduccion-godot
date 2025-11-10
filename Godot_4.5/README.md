@@ -12,12 +12,6 @@ Para juegos 2D, el modo "Mobile" es más que suficiente.
 
 En el menú de la derecha del Project Manager está la opción "Remove". Esta sirve para dejar de mostrar un proyecto en la lista del Project Manager, pero en ningún caso elimina los archivos del proyecto del disco.
 
-### Formato del nombre de scripts y escenas
-
-Puede cambiarse en Project > Project Settings > Editor > Naming. Suelo utilizar el mismo para todo: PascalCase
-
-Este tipo de ajustes se guardan en el archivo project.godot en la raíz del proyecto.
-
 ### Layout
 
 Junto a cada ventana del editor hay tres puntos que sirven para elegir la posición en pantalla.
@@ -60,6 +54,8 @@ Para cada asset, godot crea un archivo binario cuya lectura es más rápida. En 
 
 ### Escenas y nodos
 
+Puede cambiarse el formato del nombre de las escenas en: Project > Project Settings > Editor > Naming. Suelo utilizar el mismo para todo: PascalCase. Este tipo de ajustes se guarda en el archivo project.godot en la raíz del proyecto.
+
 Utilizando un editor de código se pueden abrir los archivos .tscn (escenas) y ver cómo están configuradas.
 
 La escena principal que será renderizada cuando se ejecute el juego se puede seleccionar en Project > Project Settings > Application > Run. También se puede seleccionar haciendo click derecho sobre la escena en el FileSystem > Set as Main Scene
@@ -86,10 +82,20 @@ La posición y la posición global de un nodo son conceptos diferentes. La posic
 
 ### Scripting
 
-Arrastrando un nodo al editor de código de Godot y pulsando Control se puede crear una variable @onready. Si se quiere que la ruta al nodo no dependa de su posición en el árbol de nodos, se puede hacer click derecho sobre el nodo, marcar la opción "Access as Unique Name" y arrastar el nodo al editor de código.
+Puede cambiarse el formato del nombre de los scripts en: Project > Project Settings > Editor > Naming.
+
+Arrastrando un nodo al editor de código de Godot y pulsando Control se puede crear una variable @onready. Si se quiere que la ruta al nodo no dependa de su posición en el árbol de nodos, se puede hacer click derecho sobre el nodo en la ventana "Scene", marcar la opción "Access as Unique Name" y arrastar el nodo al editor de código.
+
+En la ventana "Script" en la esquina superior derecha se puede activar el modo "Sin distracciones", que amplía el espacio del editor de código. Bajo este icono, hay otro para hacer que el editor sea flotante, de manera que puede ampliarse para que ocupe toda la pantalla.
+
+Poniendo un guion bajo (_) al comienzo de una variable que no se usa, deja de aparecer el warning por no usarla.
+
+Aunque GDScript permite el tipado dinámico es preferible evitarlo. Se evitan errores y se optimiza la ejecución del juego.
 
 ### Funciones útiles:
 
+- type_string(typeof(var)): devuelve el tipo de una variable.
+- is_equal_approx(), is_zero_approx(): para comparar floats.
 - rad_to_deg(): radianes a grados.
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala. Es preferible evitar este tipo de situaciones.

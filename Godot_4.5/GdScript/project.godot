@@ -10,15 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Foundations"
-run/main_scene="uid://deqnob6u7rhnw"
+config/name="GDScript"
+config/tags=PackedStringArray("udemy")
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
-config/tags=PackedStringArray("udemy")
-
-[display]
-
-window/stretch/mode="canvas_items"
 
 [editor]
 
