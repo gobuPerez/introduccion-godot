@@ -80,5 +80,16 @@ Haciendo click derecho sobre un nodo en la ventana "Scene" se puede cambiar el t
 
 La propiedad Canvas Item > Ordering > Y Sort Enable, permite ordenar los nodos según su posición Y. Esto es útil en juegos 2D tipo RPG, en los que un personaje puede rodear objetos. Gracias a esta propiedad se crea un efecto 3D. Es importante saber que esta propiedad no se activa en los nodos que queremos ordenar. Los nodos deben tener el mismo padre y la propidad se activa en el padre. Los nodos hijos deben pertenecer a la misma capa. 
 
+La posición y la posición global de un nodo son conceptos diferentes. La posición es la que aparece en el inspector, y siempre se mide respecto al padre. La posición global es independiente de la posición del nodo padre. Lo mismo ocurre con la rotación y la rotación global. Sin embargo, el escalado se comporta de manera diferente. Cuando se escala un nodo, sus hijos también son escalados, y el escalado afecta a su posición. Por ejemplo, el hijo de un nodo con escalado 0.5 mostrará en su propiedad position que se ha desplazado el doble de lo que lo ha hecho, lo que afecta también a la física. Por esta razón, cuando se escala un nodo, este no debe tener hijos.
+
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 
+### Scripting
+
+Arrastrando un nodo al editor de código de Godot y pulsando Control se puede crear una variable @onready. Si se quiere que la ruta al nodo no dependa de su posición en el árbol de nodos, se puede hacer click derecho sobre el nodo, marcar la opción "Access as Unique Name" y arrastar el nodo al editor de código.
+
+### Funciones útiles:
+
+- rad_to_deg(): radianes a grados.
+- Node2D.translate(Vector2()): modifica position.x y position.y
+- Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala. Es preferible evitar este tipo de situaciones.
