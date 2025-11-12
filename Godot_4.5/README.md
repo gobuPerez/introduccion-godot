@@ -54,6 +54,22 @@ Para cada asset, godot crea un archivo binario cuya lectura es más rápida. En 
 
 ### Escenas y nodos
 
+#### Ciclo de vida de un nodo:
+
+- _init
+
+- _enter_tree: se ejecuta en el orden en el que los nodos aparecen en el árbol, de arriba hacia abajo.
+
+- _ready: se ejecuta de arriba hacia abajo, primero en los nodos que tienen a todos sus hijos listos, hasta el nodo padre en último lugar.
+
+- _exit_tree
+
+En Project > Project Settings > Application > Run se puede establecer el máximo de fps al que se va a ejecutar el juego.
+
+En Project > Project Settings > Physics > Common > Physics ticks per second se puede establecer el máximo de fps del motor de físicas.
+
+En Project > Project Settings > Display > Windows, si V-Sync Mode está activado, los FPS se van a adaptar a la tasa de refresco del monitor.
+
 Puede cambiarse el formato del nombre de las escenas en: Project > Project Settings > Editor > Naming. Suelo utilizar el mismo para todo: PascalCase. Este tipo de ajustes se guarda en el archivo project.godot en la raíz del proyecto.
 
 Utilizando un editor de código se pueden abrir los archivos .tscn (escenas) y ver cómo están configuradas.
@@ -78,6 +94,8 @@ La propiedad Canvas Item > Ordering > Y Sort Enable, permite ordenar los nodos s
 
 La posición y la posición global de un nodo son conceptos diferentes. La posición es la que aparece en el inspector, y siempre se mide respecto al padre. La posición global es independiente de la posición del nodo padre. Lo mismo ocurre con la rotación y la rotación global. Sin embargo, el escalado se comporta de manera diferente. Cuando se escala un nodo, sus hijos también son escalados, y el escalado afecta a su posición. Por ejemplo, el hijo de un nodo con escalado 0.5 mostrará en su propiedad position que se ha desplazado el doble de lo que lo ha hecho, lo que afecta también a la física. Por esta razón, cuando se escala un nodo, este no debe tener hijos.
 
+#### Nodos
+
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 
 ### Scripting
@@ -94,8 +112,17 @@ Aunque GDScript permite el tipado dinámico es preferible evitarlo. Se evitan er
 
 ### Funciones útiles:
 
-- type_string(typeof(var)): devuelve el tipo de una variable.
+- deg_to_rad(): grados a radianes. 
 - is_equal_approx(), is_zero_approx(): para comparar floats.
 - rad_to_deg(): radianes a grados.
+- type_string(typeof(var)): devuelve el tipo de una variable.
+- CanvasItem.get_global_mouse_position()
 - Node2D.translate(Vector2()): modifica position.x y position.y
-- Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala. Es preferible evitar este tipo de situaciones.
+- Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
+- Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
+- Node2D.rotate(radianes)
+- Vector2.move_toward(Vector2, float): devuelve un nuevo vector que se dirige a la posicion indicada avazando la cantidad indicada
+- Vector2.length(): módulo de un vector.
+- Vector2.angle()
+- Vector2.normalized(): devuelve un vector con la misma dirección pero de módulo 1.
+- Vector2.direction_to(Vector2): devuelve un vector normalizado que sirve para conocer la dirección que une dos puntos. 
