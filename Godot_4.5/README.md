@@ -97,6 +97,7 @@ La posición y la posición global de un nodo son conceptos diferentes. La posic
 #### Nodos
 
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
+- CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas.
 
 ### Scripting
 
@@ -106,16 +107,26 @@ Arrastrando un nodo al editor de código de Godot y pulsando Control se puede cr
 
 En la ventana "Script" en la esquina superior derecha se puede activar el modo "Sin distracciones", que amplía el espacio del editor de código. Bajo este icono, hay otro para hacer que el editor sea flotante, de manera que puede ampliarse para que ocupe toda la pantalla.
 
+Es buena práctica al añadir un script a un nodo, darle un nombre con class_name.
+
 Poniendo un guion bajo (_) al comienzo de una variable que no se usa, deja de aparecer el warning por no usarla.
 
 Aunque GDScript permite el tipado dinámico es preferible evitarlo. Se evitan errores y se optimiza la ejecución del juego.
 
+Haciendo click derecho sobre un nodo en el árbol de nodos, se puede crear como una escena independiente: "Save Branch as Scene". En el desplegable que se abre, hay opciones para resetear la posición a cero.
+
 ### Funciones útiles:
 
+- clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
 - is_equal_approx(), is_zero_approx(): para comparar floats.
+- queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
 - rad_to_deg(): radianes a grados.
+- set_physics_process(bool): para detener la ejecución de _physics_process().
 - type_string(typeof(var)): devuelve el tipo de una variable.
+- CanvasItem.get_viewport_rect(): devuelve un rectángulo con las medidas de la pantalla del juego.
+- CanvasItem.hide(): oculta el nodo.
+- CanvasItem.show(): hace visible al nodo.
 - CanvasItem.get_global_mouse_position()
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
