@@ -96,8 +96,23 @@ La posición y la posición global de un nodo son conceptos diferentes. La posic
 
 #### Nodos
 
-- Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 - CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas.
+- Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
+- Timer: un temporizador.
+
+##### Nodos para colisiones
+- Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
+- StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
+- CharacterBody2D: detecta colisiones pero no trabaja con el motor de físicas. Todas los movimientos deben implementarse en código.
+- RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
+
+### Señales
+
+Junto al Inspector, en la ventana "Node", pueden consultarse las señales que emite un nodo. Haciendo click derecho o doble click sobre ellas se pueden conectar.
+
+También es posible crear señales personalizadas usando la palabra reservada "signal". Para conectar señales a través de código: señalQueSea.connect(). Y señalQueSea.disconnect() para desconectar.
+
+Distintas señales se pueden conectar a una misma función.
 
 ### Scripting
 
@@ -114,6 +129,8 @@ Poniendo un guion bajo (_) al comienzo de una variable que no se usa, deja de ap
 Aunque GDScript permite el tipado dinámico es preferible evitarlo. Se evitan errores y se optimiza la ejecución del juego.
 
 Haciendo click derecho sobre un nodo en el árbol de nodos, se puede crear como una escena independiente: "Save Branch as Scene". En el desplegable que se abre, hay opciones para resetear la posición a cero.
+
+Para hacer que una variable aparezca en el Inspector, anteponer en su declaración: @export. El valor de una variable en el Inspector tiene prioridad sobre el valor al que se inicializa en el código.
 
 ### Funciones útiles:
 

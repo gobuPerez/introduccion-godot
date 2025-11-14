@@ -4,6 +4,8 @@ class_name Dice
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
+signal game_over
+
 const SCREEN_OFFSET: int = 90
 var speed:float = 50.0
 var rotation_speed:float = 0.0
@@ -24,5 +26,6 @@ func _physics_process(delta: float) -> void:
 	sprite_2d.rotate(rotation_speed * delta * rotation_dir)
 	
 	if (position.y > get_viewport_rect().end.y + SCREEN_OFFSET):
+		game_over.emit()
 		set_physics_process(false)
 		queue_free()
