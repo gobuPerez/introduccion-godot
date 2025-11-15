@@ -132,6 +132,8 @@ Haciendo click derecho sobre un nodo en el árbol de nodos, se puede crear como 
 
 Para hacer que una variable aparezca en el Inspector, anteponer en su declaración: @export. El valor de una variable en el Inspector tiene prioridad sobre el valor al que se inicializa en el código.
 
+### Globals
+
 ### Funciones útiles:
 
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
