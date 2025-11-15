@@ -26,6 +26,9 @@ func _physics_process(delta: float) -> void:
 	sprite_2d.rotate(rotation_speed * delta * rotation_dir)
 	
 	if (position.y > get_viewport_rect().end.y + SCREEN_OFFSET):
-		game_over.emit()
-		set_physics_process(false)
-		queue_free()
+		die()
+
+func die() -> void:
+	game_over.emit()
+	set_physics_process(false)
+	queue_free()

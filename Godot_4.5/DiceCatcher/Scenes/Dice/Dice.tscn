@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_p3fax"]
 radius = 38.209946
 
-[node name="Dice" type="Area2D"]
+[node name="Dice" type="Area2D" groups=["stoppable"]]
 script = ExtResource("1_p3fax")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -54,6 +54,8 @@ Para cada asset, godot crea un archivo binario cuya lectura es más rápida. En 
 
 ### Escenas y nodos
 
+Para reiniciar una escena: get_tree().reload_current_scene()
+
 #### Ciclo de vida de un nodo:
 
 - _init
@@ -94,6 +96,12 @@ La propiedad Canvas Item > Ordering > Y Sort Enable, permite ordenar los nodos s
 
 La posición y la posición global de un nodo son conceptos diferentes. La posición es la que aparece en el inspector, y siempre se mide respecto al padre. La posición global es independiente de la posición del nodo padre. Lo mismo ocurre con la rotación y la rotación global. Sin embargo, el escalado se comporta de manera diferente. Cuando se escala un nodo, sus hijos también son escalados, y el escalado afecta a su posición. Por ejemplo, el hijo de un nodo con escalado 0.5 mostrará en su propiedad position que se ha desplazado el doble de lo que lo ha hecho, lo que afecta también a la física. Por esta razón, cuando se escala un nodo, este no debe tener hijos.
 
+#### Instanciar escenas mediante código
+
+Arrastrando una escena dentro de un script desde el sistema de archivos, y manteniendo pulsando Control al soltar, permite precargar la escena. Una escena precargada está embebida en el binario de la escena. Esto hace que cargue más rápido pero también que aumente el espacio necesario para el juego.
+
+En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as UID: si está activo las escenas precargadas se referencian por su UID, por lo que, aunque cambié su ubicación no afecta al código. Si esta opción está desactivada, la escena precargada se referencia por su ruta en el sistema de archivos, que puede cambiar a lo largo del desarrollo. Por defecto, está activa.
+
 #### Nodos
 
 - CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas.
@@ -114,6 +122,17 @@ También es posible crear señales personalizadas usando la palabra reservada "s
 
 Distintas señales se pueden conectar a una misma función.
 
+### Grupos
+
+Para identificar a un conjunto de nodos se pueden usar los grupos. En la ventana "Node" junto a la ventana "Inspector", está la opción "Groups" junto a "Signals". Hay dos tipos de grupos:
+
+- Locales a la escena: solo seleccionables dentro de la escena donde son creados.
+- Globales: seleccionables por otras escenas del juego.
+
+Cuando una escena se añade a un grupo aparece un icono de un cuadrado junto a ella en el árbol de nodos.
+
+Una forma de obtener todos los nodos que pertenecen a un grupo: get_tree().get_nodes_in_group("grupoQueSea")
+
 ### Scripting
 
 Puede cambiarse el formato del nombre de los scripts en: Project > Project Settings > Editor > Naming.
@@ -132,15 +151,19 @@ Haciendo click derecho sobre un nodo en el árbol de nodos, se puede crear como 
 
 Para hacer que una variable aparezca en el Inspector, anteponer en su declaración: @export. El valor de una variable en el Inspector tiene prioridad sobre el valor al que se inicializa en el código.
 
-### Globals
+### Manejo de la entrada
+
+Para acciones que se realizan de manera puntual, como reiniciar el juego, se puede usar: func _unhandled_input(event: InputEvent) -> void:
 
 ### Funciones útiles:
 
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
+- get_tree().reload_current_scene(): reinicia la escena.
 - is_equal_approx(), is_zero_approx(): para comparar floats.
 - queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
 - rad_to_deg(): radianes a grados.
+- randf_range(float, float): valor aleatorio en un intervalo.
 - set_physics_process(bool): para detener la ejecución de _physics_process().
 - type_string(typeof(var)): devuelve el tipo de una variable.
 - CanvasItem.get_viewport_rect(): devuelve un rectángulo con las medidas de la pantalla del juego.
