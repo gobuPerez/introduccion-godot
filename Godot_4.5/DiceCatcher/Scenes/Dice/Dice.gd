@@ -7,7 +7,7 @@ class_name Dice
 signal game_over
 
 const SCREEN_OFFSET: int = 90
-var speed:float = 50.0
+var speed:float = 200.0
 var rotation_speed:float = 0.0
 var rotation_dir = 1
 

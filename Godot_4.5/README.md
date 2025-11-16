@@ -107,6 +107,7 @@ En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as
 - CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas.
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 - Timer: un temporizador.
+- AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta.
 
 ##### Nodos para colisiones
 - Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
@@ -132,6 +133,13 @@ Para identificar a un conjunto de nodos se pueden usar los grupos. En la ventana
 Cuando una escena se añade a un grupo aparece un icono de un cuadrado junto a ella en el árbol de nodos.
 
 Una forma de obtener todos los nodos que pertenecen a un grupo: get_tree().get_nodes_in_group("grupoQueSea")
+
+### Sobre el escalado
+
+Si se necesita que el jugador sea más pequeño, escalar únicamente su sprite. No escalar al padre porque esto afectaría a su velocidad de movimiento.
+
+No escalar las CollisionShape porque se pueden producir inconsistencias con el motor de físicas. Para modificar una CollisionShape, ajustar su forma.
+
 
 ### Scripting
 
@@ -161,6 +169,7 @@ Para acciones que se realizan de manera puntual, como reiniciar el juego, se pue
 - deg_to_rad(): grados a radianes. 
 - get_tree().reload_current_scene(): reinicia la escena.
 - is_equal_approx(), is_zero_approx(): para comparar floats.
+- is_zero_approx(), is_zero_approx(): para comprobar si un float es 0.
 - queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
 - rad_to_deg(): radianes a grados.
 - randf_range(float, float): valor aleatorio en un intervalo.
@@ -170,10 +179,15 @@ Para acciones que se realizan de manera puntual, como reiniciar el juego, se pue
 - CanvasItem.hide(): oculta el nodo.
 - CanvasItem.show(): hace visible al nodo.
 - CanvasItem.get_global_mouse_position()
+- Input.is_action_just_pressed("string")
+- Input.is_action_pressed("string")
+- Input.get_axis("negative_action", "positive_action")
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
 - Node2D.rotate(radianes)
+- Sprite2D.flip_h
+- Sprite2D.flip_v
 - Vector2.move_toward(Vector2, float): devuelve un nuevo vector que se dirige a la posicion indicada avazando la cantidad indicada
 - Vector2.length(): módulo de un vector.
 - Vector2.angle()
