@@ -104,10 +104,11 @@ En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as
 
 #### Nodos
 
-- CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas.
+- AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta.
+- AudioStreamPlayer: reproductor de sonido no posicional. Comprobar que se elige el nodo que no pertenece a los Nodos2D ni a los nodos3D.
+- CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas. Para mostrar durante la ejecución del juego: Debug > Visible Collision Shapes
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 - Timer: un temporizador.
-- AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta.
 
 ##### Nodos para colisiones
 - Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
@@ -163,11 +164,14 @@ Para hacer que una variable aparezca en el Inspector, anteponer en su declaraci�
 
 Para acciones que se realizan de manera puntual, como reiniciar el juego, se puede usar: func _unhandled_input(event: InputEvent) -> void:
 
-### Funciones útiles:
+### Funciones y propiedades útiles:
+
+Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector, aparece el nombre que debemos utilizar para acceder a esa variable desde el código.
 
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
 - get_tree().reload_current_scene(): reinicia la escena.
+- get_tree().paused: para pausar una escena completa.
 - is_equal_approx(), is_zero_approx(): para comparar floats.
 - is_zero_approx(), is_zero_approx(): para comprobar si un float es 0.
 - queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
@@ -182,6 +186,7 @@ Para acciones que se realizan de manera puntual, como reiniciar el juego, se pue
 - Input.is_action_just_pressed("string")
 - Input.is_action_pressed("string")
 - Input.get_axis("negative_action", "positive_action")
+- Label.text
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.

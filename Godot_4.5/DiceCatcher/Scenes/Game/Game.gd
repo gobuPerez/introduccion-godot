@@ -1,9 +1,15 @@
 extends Node2D
 
 const DICE = preload("res://Scenes/Dice/Dice.tscn")
+const GAME_OVER = preload("res://Assets/game_over.wav")
+
 const GROUP_NAME = "stoppable"
 
 @onready var timer: Timer = $Timer
+@onready var label: Label = $Label
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
+var score:int = 0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("restart"):
@@ -28,5 +34,10 @@ func _on_timer_timeout() -> void:
 func _on_gamer_over() -> void:
 	timer.stop()
 	pause_all()
+	audio_stream_player.stop()
+	audio_stream_player.stream = GAME_OVER
+	audio_stream_player.play()
 	
-	
+func _on_fox_point_scored() -> void:
+	score += 1
+	label.text = "%04d" % score
