@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Dice Catcher"
-config/tags=PackedStringArray("seccion_5", "udemy")
+config/tags=PackedStringArray("2d", "seccion_5", "udemy")
 run/main_scene="uid://ceow1sqkm5iw4"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"

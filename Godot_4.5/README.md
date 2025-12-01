@@ -12,6 +12,8 @@ Para juegos 2D, el modo "Mobile" es más que suficiente.
 
 En el menú de la derecha del Project Manager está la opción "Remove". Esta sirve para dejar de mostrar un proyecto en la lista del Project Manager, pero en ningún caso elimina los archivos del proyecto del disco.
 
+Para cambiar el formato del nombre que reciben los scripts y las escenas al guardarse: Project > Project Settings > Editor > Naming.
+
 ### Layout
 
 Junto a cada ventana del editor hay tres puntos que sirven para elegir la posición en pantalla.
@@ -111,6 +113,8 @@ En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as
 - Timer: un temporizador.
 
 ##### Nodos para colisiones
+
+- AnimatedSprite2D: para animar hojas de sprites de manera sencilla. Para configurarlo hay que crear un nuevo SpriteFrame en el Inspector. Luego al clickar sobre él, se abre una ventana en la parte inferior de la pantalla para la animación.
 - Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
 - StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
 - CharacterBody2D: detecta colisiones pero no trabaja con el motor de físicas. Todas los movimientos deben implementarse en código.
