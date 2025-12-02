@@ -58,6 +58,8 @@ Para cada asset, godot crea un archivo binario cuya lectura es más rápida. En 
 
 Para reiniciar una escena: get_tree().reload_current_scene()
 
+Al instanciar una escena, todos los recursos son compartidos. Es decir, si tenemos dos objetos instanciados mediante la misma escena y modificamos uno de ellos, los cambios también se aplicarán al otro. Para hacer que un recurso pertenezca solo al objeto instanciado, es decir, que no sea compartido por todos, hay que marcar el recurso como "Local to Scene" en la escena base. Por defecto, Godot intenta crear un solo recurso y que todos los objetos instanciados lo compartan. Al activar Local to Scene, se crea un recurso por cada objeto instanciado.
+
 #### Ciclo de vida de un nodo:
 
 - _init
@@ -106,19 +108,20 @@ En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as
 
 #### Nodos
 
+- AnimatedSprite2D: para animar hojas de sprites de manera sencilla. Para configurarlo hay que crear un nuevo SpriteFrame en el Inspector. Luego al clickar sobre él, se abre una ventana en la parte inferior de la pantalla para la animación. En esta ventana, en Animation Frames, se puede añadir una hoja de sprites mediante "Add frames from sprite sheet", o hacerlo individualmente. En Animations, se pueden añadir nuevas animaciones y cambiar el tiempo que tardan en mostrarse todos los frames, así como activar el looping de las animaciones y el autoplay. En Animation Frames, se puede modificar cada frame individualmente. En esta sección "Frame duration" permite ajustar el tiempo que dura un frame individual.
 - AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta.
+- Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
 - AudioStreamPlayer: reproductor de sonido no posicional. Comprobar que se elige el nodo que no pertenece a los Nodos2D ni a los nodos3D.
 - CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas. Para mostrar durante la ejecución del juego: Debug > Visible Collision Shapes
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 - Timer: un temporizador.
 
-##### Nodos para colisiones
+##### Nodos de físicas
 
-- AnimatedSprite2D: para animar hojas de sprites de manera sencilla. Para configurarlo hay que crear un nuevo SpriteFrame en el Inspector. Luego al clickar sobre él, se abre una ventana en la parte inferior de la pantalla para la animación.
-- Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
-- StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
-- CharacterBody2D: detecta colisiones pero no trabaja con el motor de físicas. Todas los movimientos deben implementarse en código.
+- AnimatableBody2D: nodo de físicas para objetos que se mueven mediante animaciones.
+- CharacterBody2D: nodo de físicas para personajes que se mueven mediante código. Se establece la velocidad y el motor de físicas se encarga del movimiento.
 - RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
+- StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
 
 ### Señales
 
