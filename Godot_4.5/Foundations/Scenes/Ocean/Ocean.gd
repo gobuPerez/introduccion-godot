@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var plane: Sprite2D = $Plane
-@onready var helicopter: Sprite2D = %Helicopter
+@onready var helicopter: Sprite2D = $Helicopter
 @onready var plane_2: Sprite2D = $Plane2
 @onready var plane_3: Sprite2D = $Plane3
 @onready var plane_4: Sprite2D = $Plane4
@@ -13,9 +13,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		target = get_global_mouse_position()
 		plane.look_at(target)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	print("Hola mundo")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
