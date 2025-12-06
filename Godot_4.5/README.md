@@ -112,14 +112,15 @@ En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as
 - AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta.
 - Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
 - AudioStreamPlayer: reproductor de sonido no posicional. Comprobar que se elige el nodo que no pertenece a los Nodos2D ni a los nodos3D.
-- CollisionShape: no se debe escalar. Pueden producirse errores con el motor de físicas. Para mostrar durante la ejecución del juego: Debug > Visible Collision Shapes
+- CollisionShape2D: no se debe escalar. Pueden producirse errores con el motor de físicas. Para mostrar durante la ejecución del juego: Debug > Visible Collision Shapes.
+    - WorldBoundaryShape2D: tipo de CollisionShape2D que consiste en una linea infinita. La flecha apunta en la dirección de la que debería llegar el jugador.
 - Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 - Timer: un temporizador.
 
 ##### Nodos de físicas
 
 - AnimatableBody2D: nodo de físicas para objetos que se mueven mediante animaciones.
-- CharacterBody2D: nodo de físicas para personajes que se mueven mediante código. Se establece la velocidad y el motor de físicas se encarga del movimiento.
+- CharacterBody2D: nodo de físicas para personajes que se mueven mediante código. Se establece la velocidad y el motor de físicas se encarga del movimiento. La detección de suelos, techos y muros se puede configurar con las propiedades "Up Direction" y "Floor" que están en el Inspector.
 - RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
 - StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
 
@@ -169,7 +170,24 @@ Para hacer que una variable aparezca en el Inspector, anteponer en su declaraci�
 
 ### Manejo de la entrada
 
-Para acciones que se realizan de manera puntual, como reiniciar el juego, se puede usar: func _unhandled_input(event: InputEvent) -> void:
+Para acciones que se realizan de manera puntual, como reiniciar el juego, se puede usar: func _unhandled_input(event: InputEvent) -> void
+
+Para detectar toques de pantalla en juegos para móviles o tablets, hay que usar func _unhandled_input(event: InputEvent) -> void. Input no detecta este tipo de entrada.
+
+La detección de la entrada también puede hacerse en _physics_process(delta: float) o en _process(delta: float) usando Input, pero el movimiento solo se aplica en _physics_process(delta: float) 
+
+### Animaciones
+
+- AnimatedSprite2D: para generar una animación sencilla consistente en una sucesión de frames. Se necesita tener los sprites individuales que van a conformar la aplicación, ya sea sueltos o en una hoja de sprites.
+- AnimationPlayer: para generar animaciones un poco más complejas. Con este nodo se pueden animar las propiedades que están en el Inspector.
+
+#### Cómo usar el AnimationPlayer
+
+Para configurarlo, abrir la ventana "Animation". Pulsando sobre Animation > New, se pueden crear las animaciones. Hay dos formas de añadir los estados a la animación. La primera consiste en pulsar sobre el icono "+" y seleccionar la propiedad que se quiere animar. Luego hacer click derecho sobre la pista de animaciones y "Insert Key" La otra forma es pulsar el icono de la llave que aparece en el Inspector junto a cada propiedad (para ello tiene que estar abierta la ventana Animation). Esta segunda opción es preferible, ya que es más sencilla y rápida.
+
+Se puede configurar tanto la duración total de la animación (icono de tiempo en la esquina superior derecha), como la separación entre frames (icono de tiempo en la esquina inferior derecha).
+
+Al pulsar sobre la key (o frame) que se ha añadido a la animación, se puede ajustar su valor en el Inspector.
 
 ### Funciones y propiedades útiles:
 
@@ -190,6 +208,8 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - CanvasItem.hide(): oculta el nodo.
 - CanvasItem.show(): hace visible al nodo.
 - CanvasItem.get_global_mouse_position()
+- CharacterBody2D.velocity: para mover este nodo, se modifica la velocidad (píxeles/segundo)
+- CharacterBody2D.move_and_slide(): esta función se encarga de aplicar la velocidad previamente establecida y hacer los cálculos de físicas. Multiplica automáticamente por delta. Para aplicar gravedad hay que multiplicar por delta en el código, ya que se trata de una aceleración (px/s^2): la primera multiplicación de delta la hace move_and_slide(), la segunda hay que incluirla manualmente. 
 - Input.is_action_just_pressed("string")
 - Input.is_action_pressed("string")
 - Input.get_axis("negative_action", "positive_action")
@@ -198,6 +218,7 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
 - Node2D.rotate(radianes)
+- ProjectSettings.get("ruta"): permite acceder a los valores establecidos en los ajustes del proyecto. Haciendo click derecho sobre cualquier propiedad en Project Settings, aparece la opción "Copy Property Path". Ejemplo para acceder al valor establecido para la gravedad: var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
 - Sprite2D.flip_h
 - Sprite2D.flip_v
 - Vector2.move_toward(Vector2, float): devuelve un nuevo vector que se dirige a la posicion indicada avazando la cantidad indicada
