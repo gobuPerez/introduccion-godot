@@ -124,6 +124,15 @@ En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as
 - RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
 - StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
 
+#### Colisiones
+
+- Layer: capa a la que pertenece un objeto. Si un objeto no tiene que ser detectado por ningún otro, se puede hacer que no pertenezca a ninguna capa.
+- Mask: capas con las que interactúa un objeto.
+
+Pulsando sobre los tres puntos junto a Layer y Mask en el Inspector, se puede configurar a que capa o máscara pertenece cada objeto usando nombres personalizados. Aunque se usen las capas, es buena práctica comprobar mediante código que se está colisionando con el objeto deseado.
+
+Los nombres pueden configurarse en Project Settings > Layer Names > 2D Physics.
+
 ### Señales
 
 Junto al Inspector, en la ventana "Node", pueden consultarse las señales que emite un nodo. Haciendo click derecho o doble click sobre ellas se pueden conectar.
@@ -197,6 +206,7 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - deg_to_rad(): grados a radianes. 
 - get_tree().reload_current_scene(): reinicia la escena.
 - get_tree().paused: para pausar una escena completa.
+- get_viewport_rect(): devuelve las dimensiones del viewport. Útil para saber cuando un objeto ha salido de la pantalla. Para esto ver también VisibleOnScreenNotifier2D.
 - is_equal_approx(), is_zero_approx(): para comparar floats.
 - is_zero_approx(), is_zero_approx(): para comprobar si un float es 0.
 - queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
@@ -214,6 +224,7 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - Input.is_action_pressed("string")
 - Input.get_axis("negative_action", "positive_action")
 - Label.text
+- Marker2D: nodo 2D que marca su posición con una cruz visible en pantalla.
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
@@ -225,4 +236,5 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - Vector2.length(): módulo de un vector.
 - Vector2.angle()
 - Vector2.normalized(): devuelve un vector con la misma dirección pero de módulo 1.
-- Vector2.direction_to(Vector2): devuelve un vector normalizado que sirve para conocer la dirección que une dos puntos. 
+- Vector2.direction_to(Vector2): devuelve un vector normalizado que sirve para conocer la dirección que une dos puntos.
+- VisibleOnScreenNotifier2D: emite señales cuando un objeto entra o sale de la pantalla.
