@@ -198,6 +198,25 @@ Se puede configurar tanto la duración total de la animación (icono de tiempo e
 
 Al pulsar sobre la key (o frame) que se ha añadido a la animación, se puede ajustar su valor en el Inspector.
 
+### Interfaz de usuario
+
+No colocar las etiquetas de texto en posiciones aleatorias de forma manual. Usar la herramienta de alineación horizontal y vertical.
+
+Nodos para interfaces:
+
+- Control: nodo base para construir las interfaces de usuario.
+- Label
+- MarginContainer: para personalizar el valor de los márgenes: Theme Overrides > Constants > Margin.
+- TextureRect: para cargar texturas, como una imagen.
+
+### Globals
+
+Global es la forma que tiene Godot de llamar a un singleton. Pueden crearse en Project Settings > Globals. Solo hay que darle un nombre y añadir. Heredan de Node. Para organizarlos mejor se puede crear una carpeta llamada "Globals" en el proyecto.
+
+Algunos singletons útiles:
+- GameManager: para gestionar el cambio de escenas evitando las dependencias circulares.
+
+
 ### Funciones y propiedades útiles:
 
 Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector, aparece el nombre que debemos utilizar para acceder a esa variable desde el código.
@@ -220,10 +239,12 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - CanvasItem.get_global_mouse_position()
 - CharacterBody2D.velocity: para mover este nodo, se modifica la velocidad (píxeles/segundo)
 - CharacterBody2D.move_and_slide(): esta función se encarga de aplicar la velocidad previamente establecida y hacer los cálculos de físicas. Multiplica automáticamente por delta. Para aplicar gravedad hay que multiplicar por delta en el código, ya que se trata de una aceleración (px/s^2): la primera multiplicación de delta la hace move_and_slide(), la segunda hay que incluirla manualmente. 
+- get_tree().change_scene_to_packed("ESCENA"): para cambiar de escena.
 - Input.is_action_just_pressed("string")
 - Input.is_action_pressed("string")
 - Input.get_axis("negative_action", "positive_action")
 - Label.text
+- load() y preload(): load carga una escena en tiempo de ejecución y preload en tiempo de ejecución.
 - Marker2D: nodo 2D que marca su posición con una cruz visible en pantalla.
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).

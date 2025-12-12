@@ -6,6 +6,10 @@ extends Node
 
 const PIPES = preload("uid://dnokfmil33cmm")
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		GameManager.load_main_scene()
+
 func _ready() -> void:
 	spawn_pipes()
 	

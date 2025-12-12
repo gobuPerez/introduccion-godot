@@ -12,9 +12,13 @@ config_version=5
 
 config/name="Tappy"
 config/tags=PackedStringArray("2d", "seccion_6", "udemy")
-run/main_scene="uid://bwf4dqilj5ml4"
+run/main_scene="uid://cxt5x3kdbarw8"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="uid://b6cj5g73acgqm"
+
+[autoload]
+
+GameManager="*res://Globals/GameManager.gd"
 
 [display]
 
