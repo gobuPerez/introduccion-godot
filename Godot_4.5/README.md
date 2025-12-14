@@ -141,6 +141,10 @@ También es posible crear señales personalizadas usando la palabra reservada "s
 
 Distintas señales se pueden conectar a una misma función.
 
+Para emitir una señal: nombreDeLaSeñal.emit()
+
+Un patrón de diseño común para trabajar con señales de forma ordenada es el concentrador de señales (SignalHub). Este se crea como un Global donde se declaran  y emiten todas las señales. Luego cada escena que necesita conectarse lo hace desde la función _ready().
+
 ### Grupos
 
 Para identificar a un conjunto de nodos se pueden usar los grupos. En la ventana "Node" junto a la ventana "Inspector", está la opción "Groups" junto a "Signals". Hay dos tipos de grupos:
@@ -204,10 +208,13 @@ No colocar las etiquetas de texto en posiciones aleatorias de forma manual. Usar
 
 Nodos para interfaces:
 
+- CanvasLayer: nodo usado para renderizar objetos de forma independiente dentro de una escena 2D.
 - Control: nodo base para construir las interfaces de usuario.
 - Label
 - MarginContainer: para personalizar el valor de los márgenes: Theme Overrides > Constants > Margin.
 - TextureRect: para cargar texturas, como una imagen.
+
+Si se añade un nodo Control como hijo de un Nodo2D, como este último tiene disponible espacio infinito (todo el mundo del juego), el nodo Control no sabrá cuáles son los límites de la pantalla. En estos casos, primero hay que añadir un CanvasLayer, y como hijos de este, todos los nodos de interfaz de usuario.
 
 ### Globals
 
@@ -215,6 +222,7 @@ Global es la forma que tiene Godot de llamar a un singleton. Pueden crearse en P
 
 Algunos singletons útiles:
 - GameManager: para gestionar el cambio de escenas evitando las dependencias circulares.
+- SignalHub: para desacoplar las escenas y gestionar de forma más ordenada la emisión y conexión de señales.
 
 
 ### Funciones y propiedades útiles:

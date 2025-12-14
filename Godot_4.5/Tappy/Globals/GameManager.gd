@@ -1,6 +1,5 @@
 extends Node
 
-
 const GAME = preload("uid://bwf4dqilj5ml4")
 const MAIN = preload("uid://cxt5x3kdbarw8")
 
