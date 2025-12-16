@@ -3,6 +3,7 @@ extends CharacterBody2D
 class_name Tappy
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
 const JUMP_POWER: float = -500.0
@@ -26,6 +27,7 @@ func _physics_process(delta: float) -> void:
 	if _jumped:
 		_jumped = false
 		velocity.y = JUMP_POWER
+		animation_player.play("power")
 	
 	if is_on_floor() || is_on_ceiling():
 		die()
@@ -35,4 +37,5 @@ func _physics_process(delta: float) -> void:
 func die() -> void:
 	#set_physics_process(false)
 	#animated_sprite_2d.stop()
+	SignalHub.emit_on_plane_died()
 	get_tree().paused = true

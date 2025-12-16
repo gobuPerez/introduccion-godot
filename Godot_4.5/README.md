@@ -216,9 +216,15 @@ Nodos para interfaces:
 
 Si se añade un nodo Control como hijo de un Nodo2D, como este último tiene disponible espacio infinito (todo el mundo del juego), el nodo Control no sabrá cuáles son los límites de la pantalla. En estos casos, primero hay que añadir un CanvasLayer, y como hijos de este, todos los nodos de interfaz de usuario.
 
+### Cambios de escena
+
+Al perder el jugador, se puede pausar el árbol de nodos. Esto pausaría también el menú de game over. Para evitar que una escena se pause, se puede cambiar su comportamiento en Node > Process > Mode. Esta opción en "Always" hace que la escena nunca se pause, independientemente de que lo haga su escena padre.
+
+Al reiniciar el juego, la escena que se pausó seguirá en pausa. Esto se evita añadiendo get_tree().paused = false en la función _ready().
+
 ### Globals
 
-Global es la forma que tiene Godot de llamar a un singleton. Pueden crearse en Project Settings > Globals. Solo hay que darle un nombre y añadir. Heredan de Node. Para organizarlos mejor se puede crear una carpeta llamada "Globals" en el proyecto.
+Global es la forma que tiene Godot de llamar a un singleton. Pueden crearse en Project Settings > Globals. Solo hay que darle un nombre y añadir, o usar el icono de la carpeta para buscar el script (si ha sido creado previamente). Heredan de Node. Para organizarlos mejor se puede crear una carpeta llamada "Globals" en el proyecto.
 
 Algunos singletons útiles:
 - GameManager: para gestionar el cambio de escenas evitando las dependencias circulares.

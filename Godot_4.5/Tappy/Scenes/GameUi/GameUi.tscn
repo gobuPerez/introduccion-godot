@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce1x48ttun1i8"]
+
+[ext_resource type="LabelSettings" uid="uid://dqpaev1oopo07" path="res://Resources/SubMain.tres" id="1_anb74"]
+[ext_resource type="Script" uid="uid://bljicljso62dp" path="res://Scenes/GameUi/GameUi.gd" id="1_anolp"]
+[ext_resource type="FontFile" uid="uid://dhunynepiqid2" path="res://Assets/fonts/LuckiestGuy-Regular.ttf" id="2_anolp"]
+[ext_resource type="AudioStream" uid="uid://by3llquanhoi3" path="res://Assets/audio/game_over.wav" id="4_tt7lr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tt7lr"]
+font = ExtResource("2_anolp")
+font_size = 60
+font_color = Color(0.91327983, 0.23832715, 0.25773242, 1)
+outline_size = 9
+
+[sub_resource type="LabelSettings" id="LabelSettings_anolp"]
+font = ExtResource("2_anolp")
+font_size = 45
+font_color = Color(0.72043145, 0.45763326, 0.17644134, 1)
+outline_size = 9
+
+[node name="GameUi" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_anolp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "000"
+label_settings = ExtResource("1_anb74")
+
+[node name="GameOverLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_tt7lr")
+
+[node name="PressKeyLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press space
+to restart"
+label_settings = SubResource("LabelSettings_anolp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tt7lr")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

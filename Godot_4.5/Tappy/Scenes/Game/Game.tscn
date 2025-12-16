@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwf4dqilj5ml4"]
+[gd_scene load_steps=6 format=3 uid="uid://bwf4dqilj5ml4"]
 
 [ext_resource type="Texture2D" uid="uid://cevjfw117amb5" path="res://Assets/background/rocks_2.png" id="1_gwu2e"]
 [ext_resource type="Script" uid="uid://txy2p16prtwd" path="res://Scenes/Game/Game.gd" id="1_ln2h6"]
 [ext_resource type="PackedScene" uid="uid://d6w2lskq80qv" path="res://Scenes/Tappy/Tappy.tscn" id="2_xbxml"]
 [ext_resource type="PackedScene" uid="uid://depnyog2451fn" path="res://Scenes/Barrier/Barrier.tscn" id="3_xbxml"]
+[ext_resource type="PackedScene" uid="uid://ce1x48ttun1i8" path="res://Scenes/GameUi/GameUi.tscn" id="5_y3kpf"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ln2h6")
@@ -28,5 +29,9 @@ position = Vector2(530, 290)
 position = Vector2(530, 499)
 
 [node name="PipesHolder" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUi" parent="CanvasLayer" instance=ExtResource("5_y3kpf")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
