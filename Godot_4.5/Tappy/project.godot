@@ -20,6 +20,7 @@ config/icon="uid://b6cj5g73acgqm"
 
 GameManager="*res://Globals/GameManager.gd"
 SignalHub="*res://Globals/SignalHub.gd"
+ScoreManager="*res://Globals/ScoreManager.gd"
 
 [display]
 

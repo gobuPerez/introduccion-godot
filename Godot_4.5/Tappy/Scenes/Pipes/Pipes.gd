@@ -16,7 +16,6 @@ func _on_pippe_body_entered(body: Node2D) -> void:
 	if body is Tappy:
 		body.die()
 
-
 func _on_laser_body_exited(body: Node2D) -> void:
 	if body is Tappy:
-		print("Punto anotado")
+		SignalHub.emit_on_point_scored()

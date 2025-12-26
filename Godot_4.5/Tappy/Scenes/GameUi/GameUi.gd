@@ -6,6 +6,9 @@ class_name GameUi
 @onready var press_key_label: Label = $MarginContainer/PressKeyLabel
 @onready var timer: Timer = $Timer
 @onready var game_over_sound: AudioStreamPlayer = $GameOverSound
+@onready var score_label: Label = $MarginContainer/ScoreLabel
+
+var points:int = -1
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -17,14 +20,19 @@ func _ready() -> void:
 	game_over_label.hide()
 	press_key_label.hide()
 	SignalHub.on_plane_died.connect(on_plane_died)
+	SignalHub.on_point_scored.connect(update_score)
+	update_score()
 
 func on_plane_died() -> void:
 	game_over_label.show()
 	game_over_sound.play()
 	timer.start()
+	ScoreManager.high_score = points
 
 func _on_timer_timeout() -> void:
 	game_over_label.hide()
 	press_key_label.show()
-	print("hola")
 	
+func update_score() -> void:
+	points = points + 1
+	score_label.text = "%03d" % points

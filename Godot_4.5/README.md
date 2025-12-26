@@ -137,7 +137,7 @@ Los nombres pueden configurarse en Project Settings > Layer Names > 2D Physics.
 
 Junto al Inspector, en la ventana "Node", pueden consultarse las señales que emite un nodo. Haciendo click derecho o doble click sobre ellas se pueden conectar.
 
-También es posible crear señales personalizadas usando la palabra reservada "signal". Para conectar señales a través de código: señalQueSea.connect(). Y señalQueSea.disconnect() para desconectar.
+También es posible crear señales personalizadas usando la palabra reservada "signal". Para conectar señales a través de código: señalQueSea.connect(). Y señalQueSea.disconnect() para desconectar. Para comprobar si una señal está conectada a una función: if señalQueSea.is_connected("nombreFuncion")
 
 Distintas señales se pueden conectar a una misma función.
 
@@ -229,6 +229,22 @@ Global es la forma que tiene Godot de llamar a un singleton. Pueden crearse en P
 Algunos singletons útiles:
 - GameManager: para gestionar el cambio de escenas evitando las dependencias circulares.
 - SignalHub: para desacoplar las escenas y gestionar de forma más ordenada la emisión y conexión de señales.
+
+### Persistencia de datos
+
+Para la persistencia de datos se puede crear un Resource personalizado. Para ello primero se crea un clase donde estará la definición del recurso. Se crea una carpeta "Classes" y dentro de ella se crea un script que hereda de Resource. Tras darle un nombre usando class_name aparecerá en el desplegable de recursos disponibles haciendo click derecho en el sistema de archivos > Create new... > Resource
+
+Project > Open user data folder. En esta carpeta se guardan los datos creados por el jugador.
+
+Para guardar un recurso en el sistema de archivos: ResourceSaver.save(nombreRecurso, rutaGuardado). Crea un recurso nuevo si no existe, o reescribre el existente.
+
+Para comprobar que un recurso existe en una ubicación determinada: ResourceLoader.exists(rutaRecurso)
+
+Para cargar un recurso: var nombreRecurso = load(rutaRecurso)
+
+Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (datos en hexadecimal) 
+
+¿Cuál es la diferencia entre un nodo y un recurso? Mientras que un nodo tiene funcionalidad, mientras que un recurso es un contenedor de datos reutilizable, pero sin lógica ni "vida".
 
 
 ### Funciones y propiedades útiles:
