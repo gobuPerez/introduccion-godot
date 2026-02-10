@@ -8,12 +8,16 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Tappy"
 config/tags=PackedStringArray("2d", "seccion_6", "udemy")
 run/main_scene="uid://cxt5x3kdbarw8"
-config/features=PackedStringArray("4.5", "Mobile")
+config/features=PackedStringArray("4.6", "Mobile")
 config/icon="uid://b6cj5g73acgqm"
 
 [autoload]
