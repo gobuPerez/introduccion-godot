@@ -47,7 +47,11 @@ Para juegos 2D, el modo "Mobile" es más que suficiente.
 
 En el menú de la derecha del Project Manager está la opción "Remove". Esta sirve para dejar de mostrar un proyecto en la lista del Project Manager, pero en ningún caso elimina los archivos del proyecto del disco.
 
-Para cambiar el formato del nombre que reciben los scripts y las escenas al guardarse: Project > Project Settings > Editor > Naming.
+Para cambiar el formato del nombre que reciben los scripts y las escenas al guardarse: Project > Project Settings > Editor > Naming. Hay que activar las opciones avanzadas.
+
+Crear una carpeta Assets directamente en el FileSystem. Añadir ahí los sprites, audio, sonidos, etc.
+
+Consultar [Relación de aspecto y resolución](#4-relación-de-aspecto-y-resolución)
 
 <div id='id3'>
 
@@ -206,6 +210,15 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
 - Node2D.rotate(radianes)
+- Rigidbody2D.angular_velocity: aplica una rotación puntual, como la linear_velocity.
+- Rigidbody2D.body_entered(Body:Node): esta señal solo se lanza cuando contact_monitor = true y max_contacts_reported > 0 (esta segunda opción solo es visible cuando contact_monitor = true)
+- Rigidbody2D.constant_force: aplica una fuerza continua que provoca un movimiento acelerado. Como si al objeto se le aplicaran impulsos de forma continua.
+- Rigidbody2D.constant_torque: aplica una rotacion de forma continua, de forma equiparable a constant_force.
+- Rigidbody2D.freeze: si está en true, el objeto se comporta como un StaticBody2D. No sufre cambios al aplicarse sobre él una fuerza, ni siquiera la gravedad. Puede usarse para simular la congelación o parálisis de un objeto.
+- Rigidbody2D.input_pickable: para que el objeto puede detecar las interacciones del ratón. En la práctica se usa para que se pueda mover o aplicar fuerzas al objeto usando el ratón. Esta propiedad se encuentra en Collision Object > Input > Pickable. 
+- Rigidbody2D.linear_velocity: aplica una velocidad puntual. Como si le aplicara una fuerza una unica vez, un impulso.
+- Rigidbody2D.lock_rotation: en true, impide la rotacion del objeto.
+- Rigidbody2D.sleeping: indica que el objeto no está siendo sometido a una fuerza (exceptuando la gravedad) ni a una colisión. En la práctica se puede usar para determinar si un cuerpo está parado o no. Para esto puede usarse la señal sleeping_state_changed. Esto siempre que la opcion canSleep esté activada. Lo habitual es dejarla activada por defecto.
 - Sprite2D.flip_h
 - Sprite2D.flip_v
 - Vector2.move_toward(Vector2, float): devuelve un nuevo vector que se dirige a la posicion indicada avazando la cantidad indicada
@@ -290,6 +303,8 @@ Para detectar toques de pantalla en juegos para móviles o tablets, hay que usar
 
 La detección de la entrada también puede hacerse en _physics_process(delta: float) o en _process(delta: float) usando Input, pero el movimiento solo se aplica en _physics_process(delta: float) 
 
+Par ver las acciones predeterminadas del motor: Project > Project Settings > Input Map > Show Built-in Actions
+
 <div id='id20'>
 
 ## 20. Animaciones
@@ -317,7 +332,7 @@ Nodos para interfaces:
 - Control: nodo base para construir las interfaces de usuario.
 - Label
 - MarginContainer: para personalizar el valor de los márgenes: Theme Overrides > Constants > Margin.
-- TextureRect: para cargar texturas, como una imagen.
+- TextureRect: se usa para añadir una textura, una imagen. Usar la funcionalidad del ancla para situar el TextureRect dentro del nodo padre CanvasLayer o Control
 
 Si se añade un nodo Control como hijo de un Nodo2D, como este último tiene disponible espacio infinito (todo el mundo del juego), el nodo Control no sabrá cuáles son los límites de la pantalla. En estos casos, primero hay que añadir un CanvasLayer, y como hijos de este, todos los nodos de interfaz de usuario.
 
@@ -363,6 +378,7 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
+- get_global_mouse_position()
 - get_tree().change_scene_to_packed("ESCENA"): para cambiar de escena.
 - get_tree().paused: para pausar una escena completa.
 - get_tree().reload_current_scene(): reinicia la escena.
