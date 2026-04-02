@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://xiy6y5kcmj6"]
+
+[ext_resource type="Script" uid="uid://ck32t47pllcv7" path="res://Scenes/Test/Test.gd" id="1_wjuvt"]
+[ext_resource type="Texture2D" uid="uid://drmck44yx3wqs" path="res://Assets/player/parrot.png" id="2_1h1h0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kptja"]
+radius = 31.400637
+
+[node name="Test" type="Node" unique_id=1386895190]
+script = ExtResource("1_wjuvt")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1335130585]
+position = Vector2(553, 88)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=1163840103]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_1h1h0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=262317185]
+shape = SubResource("CircleShape2D_kptja")
+
+[node name="Label" type="Label" parent="." unique_id=244112078]
+offset_left = 77.0
+offset_top = 36.0
+offset_right = 117.0
+offset_bottom = 59.0

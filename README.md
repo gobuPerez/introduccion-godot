@@ -5,33 +5,30 @@ En este repositorio puedes encontrar videojuegos sencillos creados con Godot. Pa
 Versión de Godot usada para elaborar esta documentación: 4.6 
 
 ## Índice
-1. [Definiciones](#id1)
-2. [Creación de nuevo proyecto](#id2)
-3. [Layout de Godot](#id3)
-4. [Relación de aspecto y resolución](#id4)
-5. [Ajustes del motor](#id5)
-6. [Importación de assets](#id6)
-7. [Escenas y nodos](#id7)
-8. [Posicion y posicion global de un nodo](#id8)
-9. [Orden de renderizado](#id9)
-10. [Instanciar escenas mediante código](#id10)
-11. [Nodos más usados](#id11)
-12. [Nodos de físicas](#id12)
-13. [Métodos y propiedades útiles de nodos](#id13)
-14. [Colisiones](#id14)
-15. [Señales](#id15)
-16. [Grupos](#id16)
-17. [Sobre el escalado](#id17)
-18. [Scripting](#id18)
-19. [Manejo de la entrada](#id19)
-20. [Animaciones](#id20)
-21. [Interfaz de usuario](#id21)
-22. [Cambios de escena](#id22)
-23. [Globals](#id23)
-24. [Persistencia de datos](#id24)
-25. [Funciones útiles](#id25)
+1. [Definiciones](#definiciones)
+2. [Creación de nuevo proyecto](#nuevoProyecto)
+3. [Layout de Godot](#layout)
+4. [Relación de aspecto y resolución](#aspecto)
+5. [Ajustes del motor](#ajustes)
+6. [Importación de assets](#importacion)
+7. [Escenas y nodos](#escenas)
+8. [Posicion y posicion global de un nodo](#posicionGlobal)
+9. [Orden de renderizado](#renderizado)
+10. [Instanciar escenas mediante código](#instancias)
+11. [Nodos más usados. Métodos y propiedades](#nodos)
+12. [Colisiones](#colisiones)
+13. [Señales](#señales)
+14. [Grupos](#grupos)
+15. [Sobre el escalado](#escalado)
+16. [Scripting](#scripting)
+17. [Manejo de la entrada](#entrada)
+18. [Animaciones](#animaciones)
+19. [Interfaz de usuario](#interfaz)
+20. [Globals](#globals)
+21. [Persistencia de datos](#persistencia)
+22. [Funciones útiles](#funciones)
 
-<div id='id1'>
+<div id='definiciones'>
 
 ## 1. Deficiones
 
@@ -39,7 +36,7 @@ Versión de Godot usada para elaborar esta documentación: 4.6
 
 - res://: directorio donde se encuentra el proyecto. Puede encontrarse en el FileSystem.
 
-<div id='id2'>
+<div id='nuevoProyecto'>
 
 ## 2. Creación del proyecto
 
@@ -53,7 +50,7 @@ Crear una carpeta Assets directamente en el FileSystem. Añadir ahí los sprites
 
 Consultar [Relación de aspecto y resolución](#4-relación-de-aspecto-y-resolución)
 
-<div id='id3'>
+<div id='layout'>
 
 ## 3. Layout de Godot
 
@@ -75,7 +72,7 @@ Dentro de la ventana 2D, en View > Grid, se puede seleccionar cuándo mostrar el
 
 Arrastrando las reglas que aparecen dentro de la ventana 2D, las que indican los pixels arriba y a la izquierda, se pueden crear ejes para medir de manera más precisa las posiciones.
 
-<div id='id4'>
+<div id='aspecto'>
 
 ## 4. Relación de aspecto y resolución
 
@@ -89,7 +86,7 @@ Configurar Project > Project Settings > Display > Window > Stretch > Aspect en "
 
 Para que los sprites se vean bien en juegos con estilo pixel art cambiar Project > Project Settings > Rendering > Textures > Canvas Textures > Default Texture Filter a "Nearest".
 
-<div id='id5'>
+<div id='ajustes'>
 
 ## 5. Ajustes del motor
 
@@ -101,7 +98,7 @@ En Project > Project Settings > Display > Windows, si V-Sync Mode está activado
 
 Puede cambiarse el formato del nombre de las escenas en: Project > Project Settings > Editor > Naming. Suelo utilizar el mismo para todo: PascalCase. Este tipo de ajustes se guarda en el archivo project.godot en la raíz del proyecto.
 
-<div id='id6'>
+<div id='importacion'>
 
 ## 6. Importación de assets
 
@@ -111,13 +108,17 @@ Junto a la ventana "Scene", está "Import", que sirve para cambiar los parámetr
 
 Para cada asset, godot crea un archivo binario cuya lectura es más rápida. En el archivo .import de cada asset se puede consultar el nombre del archivo binario y donde está guardado.
 
-<div id='id7'>
+<div id='escenas'>
 
 ## 7. Escenas y nodos
 
 Para reiniciar una escena: get_tree().reload_current_scene()
 
 Al instanciar una escena, todos los recursos son compartidos. Es decir, si tenemos dos objetos instanciados mediante la misma escena y modificamos un recurso de uno de ellos, los cambios también se aplicarán al otro. Para hacer que un recurso pertenezca solo al objeto instanciado, es decir, que no sea compartido por todos, hay que marcar el recurso como "Local to Scene" en la escena base. Por defecto, Godot intenta crear un solo recurso y que todos los objetos instanciados lo compartan. Al activar Local to Scene, se crea un recurso por cada objeto instanciado.
+
+Al perder el jugador, se puede pausar el árbol de nodos. Esto pausaría también el menú de game over. Para evitar que una escena se pause, se puede cambiar su comportamiento en Node > Process > Mode. Esta opción en "Always" hace que la escena nunca se pause, independientemente de que lo haga su escena padre.
+
+Al reiniciar el juego, la escena que se pausó seguirá en pausa. Esto se evita añadiendo get_tree().paused = false en la función _ready().
 
 ### Ciclo de vida de un nodo
 
@@ -145,13 +146,13 @@ Las propiedades de un nodo se pueden marcar como favoritas haciendo click derech
 
 Haciendo click derecho sobre un nodo en la ventana "Scene" se puede cambiar el tipo de nodo: Change Type...
 
-<div id='id8'>
+<div id='posicionGlobal'>
 
 ## 8. Posición y posición global de un nodo
 
 La posición y la posición global de un nodo son conceptos diferentes. La posición es la que aparece en el inspector, y siempre se mide respecto al padre. La posición global es independiente de la posición del nodo padre. Lo mismo ocurre con la rotación y la rotación global. Sin embargo, el escalado se comporta de manera diferente. Cuando se escala un nodo, sus hijos también son escalados, y el escalado afecta a su posición. Por ejemplo, el hijo de un nodo con escalado 0.5 mostrará en su propiedad position que se ha desplazado el doble de lo que lo ha hecho, lo que afecta también a la física. Por esta razón, cuando se escala un nodo, este no debe tener hijos.
 
-<div id='id9'>
+<div id='renderizado'>
 
 ## 9. Orden de renderizado
 
@@ -159,7 +160,7 @@ El orden en el que se renderizan en pantalla los nodos depende de la propiedad: 
 
 La propiedad Canvas Item > Ordering > Y Sort Enable, permite ordenar los nodos según su posición Y. Esto es útil en juegos 2D tipo RPG, en los que un personaje puede rodear objetos. Gracias a esta propiedad se crea un efecto 3D. Es importante saber que esta propiedad no se activa en los nodos que queremos ordenar. Los nodos deben tener el mismo padre y la propidad se activa en el padre. Los nodos hijos deben pertenecer a la misma capa.
 
-<div id='id10'>
+<div id='instancias'>
 
 ## 10. Instanciar escenas mediante código
 
@@ -167,69 +168,63 @@ Arrastrando una escena dentro de un script desde el sistema de archivos, y mante
 
 En Editor > Editor Settings > Text Editor > Behavior > Drop Preload Resources as UID: si está activo las escenas precargadas se referencian por su UID, por lo que, aunque cambié su ubicación no afecta al código. Si esta opción está desactivada, la escena precargada se referencia por su ruta en el sistema de archivos, que puede cambiar a lo largo del desarrollo. Por defecto, está activa.
 
-<div id='id11'>
+<div id='nodos'>
 
-## 11. Nodos más usados
-
-- AnimatedSprite2D: para animar hojas de sprites de manera sencilla. Para configurarlo hay que crear un nuevo SpriteFrame en el Inspector. Luego al clickar sobre él, se abre una ventana en la parte inferior de la pantalla para la animación. En esta ventana, en Animation Frames, se puede añadir una hoja de sprites mediante "Add frames from sprite sheet", o hacerlo individualmente. En Animations, se pueden añadir nuevas animaciones y cambiar el tiempo que tardan en mostrarse todos los frames, así como activar el looping de las animaciones y el autoplay. En Animation Frames, se puede modificar cada frame individualmente. En esta sección "Frame duration" permite ajustar el tiempo que dura un frame individual.
-- AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta.
-- Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
-- AudioStreamPlayer: reproductor de sonido no posicional. Comprobar que se elige el nodo que no pertenece a los Nodos2D ni a los nodos3D.
-- CollisionShape2D: no se debe escalar. Pueden producirse errores con el motor de físicas. Para mostrar durante la ejecución del juego: Debug > Visible Collision Shapes.
-    - WorldBoundaryShape2D: tipo de CollisionShape2D que consiste en una linea infinita. La flecha apunta en la dirección de la que debería llegar el jugador.
-- Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
-- Timer: un temporizador.
-
-<div id='id12'>
-
-## 12. Nodos de físicas
-
-- AnimatableBody2D: nodo de físicas para objetos que se mueven mediante animaciones.
-- CharacterBody2D: nodo de físicas para personajes que se mueven mediante código. Se establece la velocidad y el motor de físicas se encarga del movimiento. La detección de suelos, techos y muros se puede configurar con las propiedades "Up Direction" y "Floor" que están en el Inspector.
-- RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
-- StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
-
-<div id='id13'>
-
-## 13. Métodos y propiedades útiles de nodos
+## 11. Nodos más usados. Métodos y propiedades.
 
 Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector, aparece el nombre que debemos utilizar para acceder a esa variable desde el código.
 
+- AnimatableBody2D: nodo de físicas para objetos que se mueven mediante animaciones.
+- AnimatedSprite2D: para animar hojas de sprites de manera sencilla. Para configurarlo hay que crear un nuevo SpriteFrame en el Inspector. Luego al clickar sobre él, se abre una ventana en la parte inferior de la pantalla para la animación. En esta ventana, en Animation Frames, se puede añadir una hoja de sprites mediante "Add frames from sprite sheet", o hacerlo individualmente. En Animations, se pueden añadir nuevas animaciones y cambiar el tiempo que tardan en mostrarse todos los frames, así como activar el looping de las animaciones y el autoplay. En Animation Frames, se puede modificar cada frame individualmente. En esta sección "Frame duration" permite ajustar el tiempo que dura un frame individual.
+- AudioStreamPlayer: reproductor de sonido no posicional. Comprobar que se elige el nodo que no pertenece a los Nodos2D ni a los nodos3D.
+- AudioStreamPlayer2D: reproduce un sonido posicionalmente. Por ejemplo, al usar auriculares se percibe de qué lugar proviene el sonido. Añadir el sonido en la propiedad "Stream", pinchando sobre el icono de la carpeta. Para escuchar un sonido sin ejecutar la escena, activar "Playing" en el inspector.
+- Area2D: sirve para detectar cuando otros cuerpos entran o salen de su zona de influencia.
 - CanvasItem.get_viewport_rect(): devuelve un rectángulo con las medidas de la pantalla del juego.
 - CanvasItem.hide(): oculta el nodo.
 - CanvasItem.show(): hace visible al nodo.
 - CanvasItem.get_global_mouse_position()
+- CollisionShape2D: no se debe escalar. Pueden producirse errores con el motor de físicas. Para mostrar durante la ejecución del juego: Debug > Visible Collision Shapes.
+    - WorldBoundaryShape2D: tipo de CollisionShape2D que consiste en una linea infinita. La flecha apunta en la dirección de la que debería llegar el jugador.
+- CharacterBody2D: nodo de físicas para personajes que se mueven mediante código. Se establece la velocidad y el motor de físicas se encarga del movimiento. La detección de suelos, techos y muros se puede configurar con las propiedades "Up Direction" y "Floor" que están en el Inspector.
 - CharacterBody2D.velocity: para mover este nodo, se modifica la velocidad (píxeles/segundo)
 - CharacterBody2D.move_and_slide(): esta función se encarga de aplicar la velocidad previamente establecida y hacer los cálculos de físicas. Multiplica automáticamente por delta. Para aplicar gravedad hay que multiplicar por delta en el código, ya que se trata de una aceleración (px/s^2): la primera multiplicación de delta la hace move_and_slide(), la segunda hay que incluirla manualmente. 
 - Input.is_action_just_pressed("string")
 - Input.is_action_pressed("string")
 - Input.get_axis("negative_action", "positive_action")
+- Label.outline_size: ancho del borde. En el inspector: Control > Theme Overrides > Constants
+- Label.font_size: En el inspector: Control > Theme Overrides > Font Sizes 
 - Label.text
+- Label.top_level: hace que el nodo no herede la posición de su nodo padre. En el inspector: CanvasItem > Visibility > Top Level
 - Marker2D: nodo 2D que marca su posición con una cruz visible en pantalla.
 - Node2D.translate(Vector2()): modifica position.x y position.y
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
 - Node2D.rotate(radianes)
+- RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
 - Rigidbody2D.angular_velocity: aplica una rotación puntual, como la linear_velocity.
+- Rigidbody2D.contact_monitor: tiene que estar en true para que el objeto emita señales al colisionar con otros objetos, además de max_contacts_reported > 0.En el inspector: Rigid Body 2D > Solver
 - Rigidbody2D.body_entered(Body:Node): esta señal solo se lanza cuando contact_monitor = true y max_contacts_reported > 0 (esta segunda opción solo es visible cuando contact_monitor = true)
 - Rigidbody2D.constant_force: aplica una fuerza continua que provoca un movimiento acelerado. Como si al objeto se le aplicaran impulsos de forma continua.
 - Rigidbody2D.constant_torque: aplica una rotacion de forma continua, de forma equiparable a constant_force.
-- Rigidbody2D.freeze: si está en true, el objeto se comporta como un StaticBody2D. No sufre cambios al aplicarse sobre él una fuerza, ni siquiera la gravedad. Puede usarse para simular la congelación o parálisis de un objeto.
-- Rigidbody2D.input_pickable: para que el objeto puede detecar las interacciones del ratón. En la práctica se usa para que se pueda mover o aplicar fuerzas al objeto usando el ratón. Esta propiedad se encuentra en Collision Object > Input > Pickable. 
+- Rigidbody2D.freeze: si está en true, el objeto se comporta como un StaticBody2D. No sufre cambios al aplicarse sobre él una fuerza, ni siquiera la gravedad. Puede usarse para simular la congelación o parálisis de un objeto. En el inspector: Rigid Body 2D > Deactivation
+- Rigidbody2D.input_pickable: para que el objeto puede detectar las interacciones del ratón. En la práctica se usa para que se pueda mover o aplicar fuerzas al objeto usando el ratón. Esta propiedad se encuentra en Collision Object > Input > Pickable. 
 - Rigidbody2D.linear_velocity: aplica una velocidad puntual. Como si le aplicara una fuerza una unica vez, un impulso.
 - Rigidbody2D.lock_rotation: en true, impide la rotacion del objeto.
 - Rigidbody2D.sleeping: indica que el objeto no está siendo sometido a una fuerza (exceptuando la gravedad) ni a una colisión. En la práctica se puede usar para determinar si un cuerpo está parado o no. Para esto puede usarse la señal sleeping_state_changed. Esto siempre que la opcion canSleep esté activada. Lo habitual es dejarla activada por defecto.
+- Sprite2D: para renderizar imágenes. Es necesario añadir una imagen en la propiedad "Texture". También se puede arrastar una imagen dentro del juego y automáticamente Godot la configura como un Sprite2D.
 - Sprite2D.flip_h
 - Sprite2D.flip_v
-- Vector2.move_toward(Vector2, float): devuelve un nuevo vector que se dirige a la posicion indicada avazando la cantidad indicada
+- StaticBody2D: detecta colisiones pero no tiene una reacción a la colisión.
+- Vector2.move_toward(Vector2, float): devuelve un nuevo vector que se dirige a la posicion indicada avazando la cantidad indicada.
+- Timer: un temporizador.
 - Vector2.length(): módulo de un vector.
 - Vector2.angle()
 - Vector2.normalized(): devuelve un vector con la misma dirección pero de módulo 1.
 - Vector2.direction_to(Vector2): devuelve un vector normalizado que sirve para conocer la dirección que une dos puntos.
 
-<div id='id14'>
+<div id='colisiones'>
 
-## 14. Colisiones
+## 12. Colisiones
 
 - Layer: capa a la que pertenece un objeto. Si un objeto no tiene que ser detectado por ningún otro, se puede hacer que no pertenezca a ninguna capa.
 - Mask: capas con las que interactúa un objeto.
@@ -238,9 +233,9 @@ Pulsando sobre los tres puntos junto a Layer y Mask en el Inspector, se puede co
 
 Los nombres pueden configurarse en Project Settings > Layer Names > 2D Physics.
 
-<div id='id15'>
+<div id='señales'>
 
-## 15. Señales
+## 13. Señales
 
 Junto al Inspector, en la ventana "Node", pueden consultarse las señales que emite un nodo. Haciendo click derecho o doble click sobre ellas se pueden conectar.
 
@@ -252,9 +247,9 @@ Para emitir una señal: nombreDeLaSeñal.emit()
 
 Un patrón de diseño común para trabajar con señales de forma ordenada es el concentrador de señales (SignalHub). Este se crea como un Global donde se declaran  y emiten todas las señales. Luego cada escena que necesita conectarse lo hace desde la función _ready().
 
-<div id='id16'>
+<div id='grupos'>
 
-## 16. Grupos
+## 14. Grupos
 
 Para identificar a un conjunto de nodos se pueden usar los grupos. En la ventana "Node" junto a la ventana "Inspector", está la opción "Groups" junto a "Signals". Hay dos tipos de grupos:
 
@@ -265,17 +260,17 @@ Cuando una escena se añade a un grupo aparece un icono de un cuadrado junto a e
 
 Una forma de obtener todos los nodos que pertenecen a un grupo: get_tree().get_nodes_in_group("grupoQueSea")
 
-<div id='id17'>
+<div id='escalado'>
 
-## 17. Sobre el escalado
+## 15. Sobre el escalado
 
 Si se necesita que el jugador sea más pequeño, escalar únicamente su sprite. No escalar al padre porque esto afectaría a su velocidad de movimiento.
 
 No escalar las CollisionShape porque se pueden producir inconsistencias con el motor de físicas. Para modificar una CollisionShape, ajustar su forma.
 
-<div id='id18'>
+<div id='scripting'>
 
-## 18. Scripting
+## 16. Scripting
 
 Puede cambiarse el formato del nombre de los scripts en: Project > Project Settings > Editor > Naming.
 
@@ -293,9 +288,9 @@ Haciendo click derecho sobre un nodo en el árbol de nodos, se puede crear como 
 
 Para hacer que una variable aparezca en el Inspector, anteponer en su declaración: @export. El valor de una variable en el Inspector tiene prioridad sobre el valor al que se inicializa en el código.
 
-<div id='id19'>
+<div id='entrada'>
 
-## 19. Manejo de la entrada
+## 17. Manejo de la entrada
 
 Para acciones que se realizan de manera puntual, como reiniciar el juego, se puede usar: func _unhandled_input(event: InputEvent) -> void
 
@@ -305,9 +300,9 @@ La detección de la entrada también puede hacerse en _physics_process(delta: fl
 
 Par ver las acciones predeterminadas del motor: Project > Project Settings > Input Map > Show Built-in Actions
 
-<div id='id20'>
+<div id='animaciones'>
 
-## 20. Animaciones
+## 18. Animaciones
 
 - AnimatedSprite2D: para generar una animación sencilla consistente en una sucesión de frames. Se necesita tener los sprites individuales que van a conformar la aplicación, ya sea sueltos o en una hoja de sprites.
 - AnimationPlayer: para generar animaciones un poco más complejas. Con este nodo se pueden animar las propiedades que están en el Inspector.
@@ -320,9 +315,9 @@ Se puede configurar tanto la duración total de la animación (icono de tiempo e
 
 Al pulsar sobre la key (o frame) que se ha añadido a la animación, se puede ajustar su valor en el Inspector.
 
-<div id='id21'>
+<div id='interfaz'>
 
-## 21. Interfaz de usuario
+## 19. Interfaz de usuario
 
 No colocar las etiquetas de texto en posiciones aleatorias de forma manual. Usar la herramienta de alineación horizontal y vertical.
 
@@ -336,17 +331,9 @@ Nodos para interfaces:
 
 Si se añade un nodo Control como hijo de un Nodo2D, como este último tiene disponible espacio infinito (todo el mundo del juego), el nodo Control no sabrá cuáles son los límites de la pantalla. En estos casos, primero hay que añadir un CanvasLayer, y como hijos de este, todos los nodos de interfaz de usuario.
 
-<div id='id22'>
+<div id='globals'>
 
-## 22. Cambios de escena
-
-Al perder el jugador, se puede pausar el árbol de nodos. Esto pausaría también el menú de game over. Para evitar que una escena se pause, se puede cambiar su comportamiento en Node > Process > Mode. Esta opción en "Always" hace que la escena nunca se pause, independientemente de que lo haga su escena padre.
-
-Al reiniciar el juego, la escena que se pausó seguirá en pausa. Esto se evita añadiendo get_tree().paused = false en la función _ready().
-
-<div id='id23'>
-
-## 23. Globals
+## 20. Globals
 
 Global es la forma que tiene Godot de llamar a un singleton. Pueden crearse en Project Settings > Globals. Solo hay que darle un nombre y añadir, o usar el icono de la carpeta para buscar el script (si ha sido creado previamente). Heredan de Node. Para organizarlos mejor se puede crear una carpeta llamada "Globals" en el proyecto.
 
@@ -354,9 +341,9 @@ Algunos singletons útiles:
 - GameManager: para gestionar el cambio de escenas evitando las dependencias circulares.
 - SignalHub: para desacoplar las escenas y gestionar de forma más ordenada la emisión y conexión de señales.
 
-<div id='id24'>
+<div id='persistencia'>
 
-## 24. Persistencia de datos
+## 21. Persistencia de datos
 
 Para la persistencia de datos se puede crear un Resource personalizado. Para ello primero se crea un clase donde estará la definición del recurso. Se crea una carpeta "Classes" y dentro de ella se crea un script que hereda de Resource. Tras darle un nombre usando class_name aparecerá en el desplegable de recursos disponibles haciendo click derecho en el sistema de archivos > Create new... > Resource
 
@@ -372,12 +359,13 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 
 ¿Cuál es la diferencia entre un nodo y un recurso? Mientras que un nodo tiene funcionalidad, mientras que un recurso es un contenedor de datos reutilizable, pero sin lógica ni "vida".
 
-<div id='id25'>
+<div id='funciones'>
 
-## 25. Funciones útiles:
+## 22. Funciones útiles:
 
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
+- get_contact_count(): devuelve el número de contactos del objeto con otros objetos.
 - get_global_mouse_position()
 - get_tree().change_scene_to_packed("ESCENA"): para cambiar de escena.
 - get_tree().paused: para pausar una escena completa.

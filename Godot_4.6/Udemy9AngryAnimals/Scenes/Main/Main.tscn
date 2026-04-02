@@ -25,5 +25,3 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_p8rbg")
 expand_mode = 1
-
-[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1371895811]
