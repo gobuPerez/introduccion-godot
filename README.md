@@ -27,6 +27,7 @@ Versión de Godot usada para elaborar esta documentación: 4.6
 20. [Globals](#globals)
 21. [Persistencia de datos](#persistencia)
 22. [Funciones útiles](#funciones)
+23. [Matemáticas](#matematicas)
 
 <div id='definiciones'>
 
@@ -221,6 +222,7 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - Vector2.angle()
 - Vector2.normalized(): devuelve un vector con la misma dirección pero de módulo 1.
 - Vector2.direction_to(Vector2): devuelve un vector normalizado que sirve para conocer la dirección que une dos puntos.
+- Vector2.ZERO: (0,0)
 
 <div id='colisiones'>
 
@@ -239,13 +241,21 @@ Los nombres pueden configurarse en Project Settings > Layer Names > 2D Physics.
 
 Junto al Inspector, en la ventana "Node", pueden consultarse las señales que emite un nodo. Haciendo click derecho o doble click sobre ellas se pueden conectar.
 
-También es posible crear señales personalizadas usando la palabra reservada "signal". Para conectar señales a través de código: señalQueSea.connect(). Y señalQueSea.disconnect() para desconectar. Para comprobar si una señal está conectada a una función: if señalQueSea.is_connected("nombreFuncion")
+También es posible crear señales personalizadas usando la palabra reservada "signal". Para conectar señales a través de código: señalQueSea.connect(nombreFuncion). Y señalQueSea.disconnect(nombreFuncion) para desconectar. Para comprobar si una señal está conectada a una función: if señalQueSea.is_connected(nombreFuncion)
 
 Distintas señales se pueden conectar a una misma función.
 
 Para emitir una señal: nombreDeLaSeñal.emit()
 
 Un patrón de diseño común para trabajar con señales de forma ordenada es el concentrador de señales (SignalHub). Este se crea como un Global donde se declaran  y emiten todas las señales. Luego cada escena que necesita conectarse lo hace desde la función _ready().
+
+Si se quiere que una señal solo se lance una vez, puede desconectarse después del primer uso, como se muestra en el código siguiente:
+```
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event.is_action_pressed("drag"):
+		input_event.disconnect(_on_input_event)
+		print("Hola mundo")
+```
 
 <div id='grupos'>
 
@@ -366,7 +376,8 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
 - get_contact_count(): devuelve el número de contactos del objeto con otros objetos.
-- get_global_mouse_position()
+- get_global_mouse_position(): posicion en el mundo del juego, no relativa a la escena padre.
+- get_local_mouse_position(): posicion relativa a la escena padre.
 - get_tree().change_scene_to_packed("ESCENA"): para cambiar de escena.
 - get_tree().paused: para pausar una escena completa.
 - get_tree().reload_current_scene(): reinicia la escena.
@@ -381,3 +392,9 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 - set_physics_process(bool): para detener la ejecución de _physics_process().
 - type_string(typeof(var)): devuelve el tipo de una variable.
 - VisibleOnScreenNotifier2D: emite señales cuando un objeto entra o sale de la pantalla.
+
+<div id='matematicas'>
+
+## 23. Matematicas
+
+El vector que empieza en la coordenada A(x1, y1) y termina en la coordenada B(x2,y2) es (x2 - x1, y2 - y1)

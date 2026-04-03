@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bwhk1qjonswxw" path="res://Assets/audio/kick_wood.ogg" id="2_lib84"]
 [ext_resource type="AudioStream" uid="uid://c6lb7nxgiiipl" path="res://Assets/audio/catapult.ogg" id="3_oryip"]
 [ext_resource type="AudioStream" uid="uid://iv544nxrg4fg" path="res://Assets/audio/stretch2.ogg" id="4_x85cc"]
+[ext_resource type="Texture2D" uid="uid://dhyj1iipssda3" path="res://Assets/items/arrow.png" id="6_x85cc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qtpp4"]
 radius = 19.288383
@@ -40,3 +41,10 @@ offset_right = 144.0
 offset_bottom = 88.0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
+
+[node name="Arrow" type="Sprite2D" parent="." unique_id=982056670]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_x85cc")
+offset = Vector2(150, 0)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
