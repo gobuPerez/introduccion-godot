@@ -8,11 +8,16 @@ extends RigidBody2D
 
 const LIMIT_DRAG_MAX:Vector2 = Vector2(0, 60)
 const LIMIT_DRAG_MIN:Vector2 = Vector2(-60, 0)
+const IMPULSE = 15
 
 var _start:Vector2 = Vector2.ZERO
 var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector:Vector2 = Vector2.ZERO
 var _is_dragging: bool = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_released("drag") and _is_dragging:
+		call_deferred("launch_animal") 
 
 func _ready() -> void:
 	_start = position
@@ -44,3 +49,9 @@ func handle_dragging() -> void:
 	
 	_dragged_vector = _new_dragged_vector
 	position = _start + _dragged_vector
+	
+func launch_animal() -> void:
+	arrow.hide()
+	freeze = false
+	_is_dragging = false
+	apply_central_impulse(_dragged_vector * IMPULSE * -1)

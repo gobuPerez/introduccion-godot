@@ -201,6 +201,7 @@ Al pasar el ratón por encima de cualquier propiedad de un nodo en el Inspector,
 - Node2D.global_translate(Vector2()): modifica global_position.x y global_position.y. En el caso de un nodo hijo cuyo padre haya sido escalado, esta función hace que la velocidad del hijo no se vea alterada por la escala (aunque es preferible evitar este tipo de situaciones).
 - Node2D.look_at(Vector2): hace que el nodo apunte en la dirección seleccionada.
 - Node2D.rotate(radianes)
+- Rigidbody2D.apply_central_impulse(impulse: Vector2): aplica un impulso en el centro de masas del RigidBody.
 - RigidBody2D: nodo que simula físicas 2D. Es controlado por el motor de físicas, por lo que no se debe modificar su estado directamente, sino aplicándole fuerzas.
 - Rigidbody2D.angular_velocity: aplica una rotación puntual, como la linear_velocity.
 - Rigidbody2D.contact_monitor: tiene que estar en true para que el objeto emita señales al colisionar con otros objetos, además de max_contacts_reported > 0.En el inspector: Rigid Body 2D > Solver
@@ -373,6 +374,7 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 
 ## 22. Funciones útiles:
 
+- call_deferred("nombreFuncion"): hace que la función sobre la que se aplica se ejecute al final del frame actual.
 - clampf(float, float, float): asegura que un valor siempre esté entre otros dos indicados. 
 - deg_to_rad(): grados a radianes. 
 - get_contact_count(): devuelve el número de contactos del objeto con otros objetos.
@@ -384,6 +386,7 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 - get_viewport_rect(): devuelve las dimensiones del viewport. Útil para saber cuando un objeto ha salido de la pantalla. Para esto ver también VisibleOnScreenNotifier2D.
 - is_equal_approx(), is_zero_approx(): para comparar floats.
 - is_zero_approx(), is_zero_approx(): para comprobar si un float es 0.
+- lerpf
 - load() y preload(): load carga una escena en tiempo de ejecución y preload en tiempo de ejecución.
 - ProjectSettings.get("ruta"): permite acceder a los valores establecidos en los ajustes del proyecto. Haciendo click derecho sobre cualquier propiedad en Project Settings, aparece la opción "Copy Property Path". Ejemplo para acceder al valor establecido para la gravedad: var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
 - queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
