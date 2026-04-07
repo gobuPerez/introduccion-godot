@@ -386,7 +386,7 @@ Un recurso puede guardarse en dos fomatos: .tres (legible, texto plano) y .res (
 - get_viewport_rect(): devuelve las dimensiones del viewport. Útil para saber cuando un objeto ha salido de la pantalla. Para esto ver también VisibleOnScreenNotifier2D.
 - is_equal_approx(), is_zero_approx(): para comparar floats.
 - is_zero_approx(), is_zero_approx(): para comprobar si un float es 0.
-- lerpf
+- lerpf(min, max, percentil): interpolación lineal entre dos valores.
 - load() y preload(): load carga una escena en tiempo de ejecución y preload en tiempo de ejecución.
 - ProjectSettings.get("ruta"): permite acceder a los valores establecidos en los ajustes del proyecto. Haciendo click derecho sobre cualquier propiedad en Project Settings, aparece la opción "Copy Property Path". Ejemplo para acceder al valor establecido para la gravedad: var _gravity:float = ProjectSettings.get("physics/2d/default_gravity")
 - queue_free(): pide al motor que se elimine un nodo. Suele usarse junto con set_physics_process(false) porque puede transcurrir algo de tiempo entre el momento en el que queremos eliminar un nodo y el momento en que se elimina.
